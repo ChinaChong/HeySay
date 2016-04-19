@@ -1,0 +1,40 @@
+//
+//  HeySay.pch
+//  HeySay
+//
+//  Created by ChinaChong on 16/4/18.
+//  Copyright © 2016年 ChinaChong. All rights reserved.
+//
+
+#ifndef HeySay_pch
+#define HeySay_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "MBProgressHUD.h"
+#import "DeviceDelegateHelper.h"
+#import "ECDeviceHeaders.h"
+//#import "DemoGlobalClass.h"
+#import "NSString+DocumentPath.h"
+
+#pragma mark - 常用尺寸
+
+#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+#define NormalHeight 44
+#define kMargin 8
+
+#pragma mark - 自定义通知
+
+// MARK:聊天界面->点击发送按钮
+#define ChatViewSendMessageButtonClick @"ChatViewSendMessageButtonClick"
+
+#endif
+
+
+#endif /* HeySay_pch */
