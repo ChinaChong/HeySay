@@ -51,9 +51,13 @@
     
     NSString *text = self.textField.text;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:ChatViewSendMessageButtonClick object:text];
+    if (text.length > 0) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:ChatViewSendMessageButtonClick object:text];
+        
+        self.textField.text = @"";
+    }
     
-    self.textField.text = @"";
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

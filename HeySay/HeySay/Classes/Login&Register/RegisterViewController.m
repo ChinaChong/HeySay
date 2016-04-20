@@ -20,6 +20,9 @@
 @property (nonatomic,strong) UIImage  *imageOfPicker;
 @property (nonatomic,copy)   NSString *imageName;
 
+
+@property (strong, nonatomic) IBOutlet UIView *rootV;
+
 @end
 
 @implementation RegisterViewController
@@ -31,6 +34,8 @@
     self.registerBtn.layer.masksToBounds = YES;
     
     [self pickIconImg];
+    
+    [self registerKeyBoardNotification];
 }
 
 - (void)pickIconImg {
@@ -95,6 +100,54 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    [self.view endEditing:YES];
+}
+
+- (void)registerKeyBoardNotification {
+    
+    // 使用NSNotificationCenter 注册观察当键盘要出现时
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    // 使用NSNotificationCenter 注册观察当键盘要隐藏时
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+// 键盘将要弹出
+
+- (void)didKeyboardWillShow:(NSNotification *)notification{
+    NSDictionary *info = [notification userInfo];
+    
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    // 输入框位置动画加载
+    [self beginMoveUpAnimation:keyboardSize.height];
+}
+
+// 键盘将要隐藏
+- (void)didKeyboardWillHide:(NSNotification *)notification{
+    [self beginMoveUpAnimation:0];
+}
+
+// 移除通知中心
+- (void)removeRorKeyboardNotifications{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+// 开始执行键盘改变后对应视图的变化
+- (void)beginMoveUpAnimation:(CGFloat)height{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.rootV.frame = CGRectMake(0,  -height, ScreenWidth, ScreenHeight);
+    }];
+    
+    [self.rootV layoutIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [self removeRorKeyboardNotifications];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

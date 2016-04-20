@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 
+@property (strong, nonatomic) IBOutlet UIView *rootV;
 
 @end
 
@@ -34,7 +35,7 @@
     }
     
     [self configBtn];
-    
+    [self registerKeyBoardNotification];
 }
 
 - (IBAction)loginAction:(id)sender {
@@ -42,6 +43,8 @@
     MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"正在登录...";
     hud.removeFromSuperViewOnHide = YES;
+    
+    [self performSelector:@selector(jumpToMainTabBarController) withObject:nil afterDelay:2];
     
     [self checkAccountAndPassWord];
 }
@@ -80,6 +83,55 @@
     
     self.registerBtn.layer.cornerRadius = 4;
     self.registerBtn.layer.masksToBounds = YES;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    [self.view endEditing:YES];
+}
+
+- (void)registerKeyBoardNotification {
+    
+    // 使用NSNotificationCenter 注册观察当键盘要出现时
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    // 使用NSNotificationCenter 注册观察当键盘要隐藏时
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+// 键盘将要弹出
+
+- (void)didKeyboardWillShow:(NSNotification *)notification{
+    NSDictionary *info = [notification userInfo];
+    
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    // 输入框位置动画加载
+    [self beginMoveUpAnimation:keyboardSize.height];
+}
+
+// 键盘将要隐藏
+- (void)didKeyboardWillHide:(NSNotification *)notification{
+    [self beginMoveUpAnimation:0];
+}
+
+// 移除通知中心
+- (void)removeRorKeyboardNotifications{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+// 开始执行键盘改变后对应视图的变化
+- (void)beginMoveUpAnimation:(CGFloat)height{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.rootV.frame = CGRectMake(0, -height, ScreenWidth, ScreenHeight);
+    }];
+    
+    [self.rootV layoutIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [self removeRorKeyboardNotifications];
 }
 
 - (void)didReceiveMemoryWarning {

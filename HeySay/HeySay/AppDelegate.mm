@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface AppDelegate ()
 
@@ -18,6 +19,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [ECDevice sharedInstance].delegate = [DeviceDelegateHelper sharedInstance];
+    
+    NSString *APPID = @"9sO2iepe985cP4taIcK2vOcV-gzGzoHsz";
+    NSString *APPKey = @"dczCCipmU5bBtLd7Bm2owS8q";
+    
+    // applicationId 即 App Id，clientKey 是 App Key。
+    [AVOSCloud setApplicationId:APPID clientKey:APPKey];
+    
+    // 如果想跟踪统计应用的打开情况，后面还可以添加下列代码：
+    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     return YES;
 }
