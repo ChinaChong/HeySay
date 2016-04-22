@@ -10,4 +10,6 @@
 
 @interface DatabaseManager : NSObject
 
++ (instancetype)defaultManeger;
+
 @end

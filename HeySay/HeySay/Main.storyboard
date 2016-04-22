@@ -7,7 +7,7 @@
         <!--Register View Controller-->
         <scene sceneID="iMY-Q9-fxg">
             <objects>
-                <viewController id="gwr-vE-sy1" customClass="RegisterViewController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" id="gwr-vE-sy1" customClass="RegisterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YJc-di-eat"/>
                         <viewControllerLayoutGuide type="bottom" id="wHa-Cp-6wk"/>
@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Aj-33-oIW">
-                                <rect key="frame" x="15" y="20" width="30" height="30"/>
+                                <rect key="frame" x="15" y="20" width="42" height="37"/>
                                 <state key="normal" title="返回">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -56,7 +56,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="用户2.png" translatesAutoresizingMaskIntoConstraints="NO" id="eKb-Kr-k32">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="占位头像.png" translatesAutoresizingMaskIntoConstraints="NO" id="eKb-Kr-k32">
                                 <rect key="frame" x="250" y="90" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="b8G-ga-pvE"/>
@@ -65,13 +65,16 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ws3-Mp-6iF">
                                 <rect key="frame" x="170" y="448" width="260" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="8o4-kW-5ni"/>
                                 </constraints>
                                 <state key="normal" title="注册">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="registerBtnClick:" destination="gwr-vE-sy1" eventType="touchUpInside" id="RS1-Yk-mtL"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击选取头像" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iup-O7-Vn5">
                                 <rect key="frame" x="224" y="198" width="152" height="21"/>
@@ -192,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nue-EU-3dw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-654" y="1033"/>
+            <point key="canvasLocation" x="-573" y="1049"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -220,7 +223,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uzk-t8-wgl">
                                 <rect key="frame" x="40" y="370" width="520" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="uIx-Oz-3pz"/>
                                 </constraints>
@@ -234,7 +237,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwV-Od-uaS">
                                 <rect key="frame" x="40" y="420" width="520" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="w3L-vZ-MAi"/>
                                 </constraints>
@@ -266,7 +269,7 @@
                                     <constraint firstAttribute="height" constant="30" id="hCP-Ic-sSp"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -503,6 +506,6 @@
     </scenes>
     <resources>
         <image name="backgroundImg01.jpg" width="800" height="1280"/>
-        <image name="用户2.png" width="200" height="200"/>
+        <image name="占位头像.png" width="200" height="200"/>
     </resources>
 </document>

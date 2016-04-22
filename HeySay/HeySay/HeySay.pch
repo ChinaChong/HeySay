@@ -21,18 +21,22 @@
 #import "ECDeviceHeaders.h"
 //#import "DemoGlobalClass.h"
 #import "NSString+DocumentPath.h"
+#import "LeanCloudManager.h"
 
-#pragma mark - 常用尺寸
-
-#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+// MARK:常用尺寸
+#define ScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define NormalHeight 44
-#define kMargin 8
-
-#pragma mark - 自定义通知
+#define kMargin      8
 
 // MARK:聊天界面->点击发送按钮
 #define ChatViewSendMessageButtonClick @"ChatViewSendMessageButtonClick"
+
+// MARK: leancloud 相关
+#define AllIDClassName    @"AllID"
+#define AllIDObjectID     @"571841c01ea493006cd5fb76"
+#define AllIDArrayName    @"allID"
+#define UserInfoClassName @"UserInfo"
 
 #endif
 

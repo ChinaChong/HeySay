@@ -8,6 +8,21 @@
 
 #import "DatabaseManager.h"
 
+
 @implementation DatabaseManager
+
++ (instancetype)defaultManeger {
+    
+    static DatabaseManager *manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        manager = [[DatabaseManager alloc] init];
+    });
+    
+    return manager;
+}
+
+
 
 @end
