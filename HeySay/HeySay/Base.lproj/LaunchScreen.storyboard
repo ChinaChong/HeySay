@@ -15,12 +15,74 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HeySay" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxg-gK-RNp">
+                                <rect key="frame" x="120" y="165" width="360" height="73"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="360" id="UtN-bh-xqc"/>
+                                    <constraint firstAttribute="height" constant="73" id="gNG-Di-ydq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="52"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <size key="shadowOffset" width="2" height="1"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2016年 HeySay研发集团. " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3WS-J8-0pd">
+                                <rect key="frame" x="82" y="532" width="437" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="6iN-3k-tZl"/>
+                                    <constraint firstAttribute="width" constant="437" id="Dxp-H0-4hR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="研发人员: 高崇  孝显赫  黄俊霖" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Stf-UV-ysA">
+                                <rect key="frame" x="157" y="501" width="287" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="q0T-Q1-7PH"/>
+                                    <constraint firstAttribute="width" constant="287" id="slw-gV-cfx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="1" height="0.0"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQh-Hm-fAa">
+                                <rect key="frame" x="82" y="559" width="437" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="WFt-k3-xly"/>
+                                    <constraint firstAttribute="width" constant="437" id="hKP-qx-ooe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Gxg-gK-RNp" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5aQ-YN-ozG"/>
+                            <constraint firstItem="Stf-UV-ysA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Akc-Oq-Pf7"/>
+                            <constraint firstItem="Gxg-gK-RNp" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="145" id="Alx-89-HNA"/>
+                            <constraint firstItem="bQh-Hm-fAa" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Mau-j0-dfh"/>
+                            <constraint firstItem="bQh-Hm-fAa" firstAttribute="top" secondItem="3WS-J8-0pd" secondAttribute="bottom" constant="10" id="gcs-3j-yXX"/>
+                            <constraint firstItem="3WS-J8-0pd" firstAttribute="top" secondItem="Stf-UV-ysA" secondAttribute="bottom" constant="10" id="lBk-dP-d2g"/>
+                            <constraint firstItem="3WS-J8-0pd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="qEG-Wd-tvI"/>
+                            <constraint firstItem="bQh-Hm-fAa" firstAttribute="top" secondItem="3WS-J8-0pd" secondAttribute="bottom" constant="6" id="uSQ-Au-vax"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="bQh-Hm-fAa" secondAttribute="bottom" constant="20" id="w5W-26-Anq"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="gcs-3j-yXX"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="323" y="397"/>
+            <point key="canvasLocation" x="286" y="387"/>
         </scene>
     </scenes>
 </document>

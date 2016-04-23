@@ -350,7 +350,7 @@
         <!--通讯录-->
         <scene sceneID="gii-e8-7fc">
             <objects>
-                <viewController id="puT-H5-xVD" sceneMemberID="viewController">
+                <viewController id="puT-H5-xVD" customClass="FriendsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X24-DS-aUM"/>
                         <viewControllerLayoutGuide type="bottom" id="4hL-3F-QQH"/>
@@ -365,6 +365,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egy-8P-pwx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="716" y="1773"/>
+        </scene>
+        <!--Time Line Table View Controller-->
+        <scene sceneID="7dh-mX-0G9">
+            <objects>
+                <tableViewController id="u3K-tT-cQC" customClass="TimeLineTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zHI-WP-RcV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dwz-zz-a0q">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dwz-zz-a0q" id="5oq-M3-Aaq">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="u3K-tT-cQC" id="mVF-R0-aWQ"/>
+                            <outlet property="delegate" destination="u3K-tT-cQC" id="pYz-rV-cA1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Fwm-Ts-AEn"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lcg-rc-2Ti" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1352" y="1773"/>
         </scene>
         <!--消息-->
         <scene sceneID="QFC-ZJ-aow">
@@ -381,7 +410,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29v-XJ-uM9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="74" y="1049"/>
+            <point key="canvasLocation" x="86" y="1049"/>
         </scene>
         <!--消息-->
         <scene sceneID="Mvf-ZZ-1WV">
@@ -396,7 +425,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WEX-CI-sY4">
-                                <rect key="frame" x="234" y="193" width="101" height="35"/>
+                                <rect key="frame" x="133" y="193" width="101" height="35"/>
                                 <color key="backgroundColor" red="0.25674476509999999" green="1" blue="0.16293176479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="进入聊天界面"/>
                                 <connections>
@@ -439,31 +468,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="mlF-oR-7I2" kind="relationship" relationship="rootViewController" id="9KW-vu-fSV"/>
+                        <segue destination="u3K-tT-cQC" kind="relationship" relationship="rootViewController" id="h6Z-qb-9xM"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2tG-kx-Dgz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1352" y="1049"/>
-        </scene>
-        <!--朋友圈-->
-        <scene sceneID="XPw-DE-cJS">
-            <objects>
-                <viewController id="mlF-oR-7I2" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wRd-0t-R4J"/>
-                        <viewControllerLayoutGuide type="bottom" id="4Wj-Qz-dNT"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="sqs-WN-jNZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="朋友圈" id="22n-T5-ylr"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RmK-CS-N80" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1352" y="1773"/>
         </scene>
         <!--我-->
         <scene sceneID="hfc-2y-aiZ">
@@ -501,7 +511,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iv-UX-zdW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1982" y="1765"/>
+            <point key="canvasLocation" x="1982" y="1773"/>
         </scene>
     </scenes>
     <resources>

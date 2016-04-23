@@ -164,7 +164,11 @@
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
     // 输入框位置动画加载
-    [self beginMoveUpAnimation:keyboardSize.height];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.rootV.frame = CGRectMake(0,  -keyboardSize.height * 0.5, ScreenWidth, ScreenHeight);
+    }];
+    
+    [self.rootV layoutSubviews];
 }
 
 // MARK:键盘将要隐藏
@@ -179,11 +183,11 @@
 
 // MARK:开始执行键盘改变后对应视图的变化
 - (void)beginMoveUpAnimation:(CGFloat)height{
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         self.rootV.frame = CGRectMake(0,  -height, ScreenWidth, ScreenHeight);
     }];
     
-    [self.rootV layoutIfNeeded];
+    [self.rootV layoutSubviews];
 }
 
 // MARK:视图消失,移除通知中心

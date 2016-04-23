@@ -180,7 +180,11 @@
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
     // 输入框位置动画加载
-    [self beginMoveUpAnimation:keyboardSize.height];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.rootV.frame = CGRectMake(0,  -keyboardSize.height * 0.4, ScreenWidth, ScreenHeight);
+    }];
+    
+    [self.rootV layoutSubviews];
 }
 
 // MARK:键盘将要隐藏

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C2758091CCB1BD900E2FFCF /* TimeLineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2758081CCB1BD900E2FFCF /* TimeLineTableViewController.m */; };
 		3C80135D1CC7BEEA005F3027 /* 占位头像.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C80135C1CC7BEEA005F3027 /* 占位头像.png */; };
 		3CA385E41CC467AC008B6CFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA385E31CC467AC008B6CFC /* main.m */; };
 		3CA385E71CC467AC008B6CFC /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CA385E61CC467AC008B6CFC /* AppDelegate.mm */; };
@@ -50,6 +51,7 @@
 		3CA387AE1CC4E498008B6CFC /* ChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA387AD1CC4E498008B6CFC /* ChatKeyBoardInputView.m */; };
 		3CA387FC1CC517B4008B6CFC /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA387FB1CC517B4008B6CFC /* MessageTableViewCell.m */; };
 		3CA8F4B71CC9C8E200B96088 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA8F4B61CC9C8E200B96088 /* MBProgressHUD.m */; };
+		3CA8F4BB1CCA48D100B96088 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA8F4BA1CCA48D100B96088 /* FriendsViewController.m */; };
 		3CBECFAD1CC8826300B83B5F /* LeanCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CBECFAC1CC8826300B83B5F /* LeanCloudManager.m */; };
 		3CBECFB31CC8BCC700B83B5F /* NSString+DocumentPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CBECFB01CC8BCC700B83B5F /* NSString+DocumentPath.m */; };
 		3CBECFB41CC8BCC700B83B5F /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CBECFB21CC8BCC700B83B5F /* NSString+MD5.m */; };
@@ -80,6 +82,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C2758071CCB1BD900E2FFCF /* TimeLineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineTableViewController.h; sourceTree = "<group>"; };
+		3C2758081CCB1BD900E2FFCF /* TimeLineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineTableViewController.m; sourceTree = "<group>"; };
 		3C80135C1CC7BEEA005F3027 /* 占位头像.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "占位头像.png"; sourceTree = "<group>"; };
 		3CA385DF1CC467AC008B6CFC /* HeySay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeySay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA385E31CC467AC008B6CFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 		3CA387FB1CC517B4008B6CFC /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		3CA8F4B51CC9C8E200B96088 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		3CA8F4B61CC9C8E200B96088 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		3CA8F4B91CCA48D100B96088 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
+		3CA8F4BA1CCA48D100B96088 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 		3CBECFAB1CC8826300B83B5F /* LeanCloudManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeanCloudManager.h; sourceTree = "<group>"; };
 		3CBECFAC1CC8826300B83B5F /* LeanCloudManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeanCloudManager.m; sourceTree = "<group>"; };
 		3CBECFAF1CC8BCC700B83B5F /* NSString+DocumentPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DocumentPath.h"; sourceTree = "<group>"; };
@@ -431,6 +437,8 @@
 			isa = PBXGroup;
 			children = (
 				3CA3875C1CC47490008B6CFC /* .gitignore */,
+				3CA8F4B91CCA48D100B96088 /* FriendsViewController.h */,
+				3CA8F4BA1CCA48D100B96088 /* FriendsViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -547,6 +555,8 @@
 			isa = PBXGroup;
 			children = (
 				3CA387741CC47490008B6CFC /* .gitignore */,
+				3C2758071CCB1BD900E2FFCF /* TimeLineTableViewController.h */,
+				3C2758081CCB1BD900E2FFCF /* TimeLineTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -919,9 +929,11 @@
 			files = (
 				3CA3877F1CC47490008B6CFC /* ViewController.m in Sources */,
 				3CCD01961CC65A67004C5703 /* MineViewController.m in Sources */,
+				3CA8F4BB1CCA48D100B96088 /* FriendsViewController.m in Sources */,
 				3CBECFB41CC8BCC700B83B5F /* NSString+MD5.m in Sources */,
 				3CA385E71CC467AC008B6CFC /* AppDelegate.mm in Sources */,
 				3CA387FC1CC517B4008B6CFC /* MessageTableViewCell.m in Sources */,
+				3C2758091CCB1BD900E2FFCF /* TimeLineTableViewController.m in Sources */,
 				3CBECFBA1CC90EE300B83B5F /* UserModel.m in Sources */,
 				3CA387AE1CC4E498008B6CFC /* ChatKeyBoardInputView.m in Sources */,
 				3CCD017A1CC6058E004C5703 /* DeviceDelegateHelper.m in Sources */,
