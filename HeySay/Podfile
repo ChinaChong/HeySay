@@ -1,4 +1,4 @@
 pod 'SDWebImage', '~> 3.7.5'
 pod 'AVOSCloud', '~> 3.2.7'
-pod 'FMDB', '~> 2.6.2'
+pod 'FMDB', '~> 2.6'
 pod 'SlimeRefresh', '~> 0.0.1'

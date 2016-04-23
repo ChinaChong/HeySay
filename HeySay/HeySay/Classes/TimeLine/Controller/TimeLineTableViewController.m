@@ -7,22 +7,75 @@
 //
 
 #import "TimeLineTableViewController.h"
-
+#import "TimeLineModel.h"
+#import "TimeLineFrame.h"
+#import "TimeLineCell.h"
+#define TIFIER @"TimeLineCell"
 @interface TimeLineTableViewController ()
-
+@property (nonatomic, strong)NSMutableArray *TimeLineModelArray;
 @end
 
 @implementation TimeLineTableViewController
+-(NSMutableArray *)TimeLineModelArray{
+    if (!_TimeLineModelArray) {
+        NSString *fullPath = [[NSBundle mainBundle] pathForResource:@"FamilyGroup.plist" ofType:nil];
+        NSArray *dictArray = [NSArray arrayWithContentsOfFile:fullPath];
+        NSMutableArray *models = [NSMutableArray arrayWithCapacity:[dictArray count]];
+        for (NSDictionary *dict in dictArray) {
+            TimeLineModel *timeLineModel = [TimeLineModel TimeLineModelWithDict:dict];
+            TimeLineFrame *timeLineFrame = [[TimeLineFrame alloc]init];
+            timeLineFrame.timeLineModel = timeLineModel;
+            
+            [models addObject:timeLineFrame];
+        }
+        _TimeLineModelArray = [models copy];
+    }
+    return _TimeLineModelArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.title = @"朋友圈";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddAbout:)];
+    [self.tableView registerClass:[TimeLineCell class] forCellReuseIdentifier:TIFIER];
+    [self requestData];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self addHeadView];
 }
+//抬头
+-(void)addHeadView{
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenWidth, headViewHeight)];
+    
+    
+    //长按应该可以更换背景
+    UIImageView *backGroundImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, screenWidth, headViewHeight - 2*apadding)];
+    backGroundImageView.image = [UIImage imageNamed:@"background.jpg"];
+    [headView addSubview:backGroundImageView];
+    
+    
+    UIImageView *headIconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(apadding, headViewHeight - headIconHeight, headIconWidth, headIconHeight)];
+    headIconImageView.image = [UIImage imageNamed:@"headicon"];
+    [headView addSubview:headIconImageView];
+    
+    
+    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(headIconWidth + 2 * apadding, headViewHeight - 0.8*headIconHeight, 100, 15)];
+    nameLabel.text = @"luyang";
+    nameLabel.font = [UIFont systemFontOfSize:13];
+    nameLabel.textColor = [UIColor whiteColor];
+    [headView addSubview:nameLabel];
+    
+    self.tableView.tableHeaderView = headView;
+}
+//添加说说
+-(void)AddAbout:(id)sender{
+    
+}
+//数据接口
+-(void)requestData{
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -32,67 +85,40 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 0;
+    
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    if (self.TimeLineModelArray) {
+        return self.TimeLineModelArray.count;
+    }
+    return 0;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //自动调整高度并且调整cell高度
+    if (self.TimeLineModelArray) {
+        TimeLineFrame *frame = self.TimeLineModelArray[indexPath.row];
+        return frame.cellHeight;
+    }
     return 0;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier" forIndexPath:indexPath];
     
-    // Configure the cell...
+    TimeLineFrame *frame = self.TimeLineModelArray[indexPath.row];
+    
+    
+    TimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:TIFIER];
+    if (cell == nil) {
+        cell = [[TimeLineCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TIFIER];
+    }
+    cell.timeLineFrame = frame;
+    //点击图片进入轮播界面
+    cell.imageBlock = ^(NSArray *images,NSInteger clickTag){
+        
+    };
     
     return cell;
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

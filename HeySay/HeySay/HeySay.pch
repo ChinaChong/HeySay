@@ -38,6 +38,16 @@
 #define AllIDArrayName    @"allID"
 #define UserInfoClassName @"UserInfo"
 
+//MARKL TimeLine相关
+#define apadding 10
+#define screenWidth [UIScreen mainScreen].bounds.size.width
+#define screenHeight [UIScreen mainScreen].bounds.size.height
+#define headViewHeight 200
+#define headIconWidth 50
+#define headIconHeight 50
+#define ImageTag 2000
+
+
 #endif
 
 
