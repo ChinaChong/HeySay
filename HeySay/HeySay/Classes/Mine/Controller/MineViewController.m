@@ -47,7 +47,7 @@
     VC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"正在注销...";
+    hud.label.text = @"正在注销...";
     hud.removeFromSuperViewOnHide = YES;
     
     __weak typeof(self) weakself = self;

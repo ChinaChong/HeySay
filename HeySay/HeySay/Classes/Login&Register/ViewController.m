@@ -38,6 +38,10 @@
     }
     
     [self configInterface];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
     [self registerKeyBoardNotification];
 }
 
@@ -154,7 +158,6 @@
     
     self.registerBtn.layer.cornerRadius = 4;
     self.registerBtn.layer.masksToBounds = YES;
-    
 }
 
 #pragma  mark - 回收键盘
@@ -180,16 +183,17 @@
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
     // 输入框位置动画加载
+        
     [UIView animateWithDuration:0.5 animations:^{
         self.rootV.frame = CGRectMake(0,  -keyboardSize.height * 0.4, ScreenWidth, ScreenHeight);
+        [self.rootV layoutSubviews];
     }];
-    
-    [self.rootV layoutSubviews];
 }
 
 // MARK:键盘将要隐藏
 - (void)didKeyboardWillHide:(NSNotification *)notification{
-    [self beginMoveUpAnimation:0];
+        
+        [self beginMoveUpAnimation:0];
 }
 
 // MARK:开始执行键盘改变后对应视图的变化
@@ -198,7 +202,7 @@
         self.rootV.frame = CGRectMake(0, -height, ScreenWidth, ScreenHeight);
     }];
     
-    [self.rootV layoutIfNeeded];
+    [self.rootV layoutSubviews];
 }
 
 #pragma mark - 移除通知中心
@@ -231,7 +235,7 @@
     
     hud.label.text = NSLocalizedString(message, @"HUD done title");
     hud.square = YES;
-    [hud hideAnimated:YES afterDelay:1.0f];
+    [hud hideAnimated:YES afterDelay:0.5f];
 }
 
 - (void)didReceiveMemoryWarning {

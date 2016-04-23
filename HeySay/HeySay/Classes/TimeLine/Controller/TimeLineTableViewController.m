@@ -16,6 +16,7 @@
 @end
 
 @implementation TimeLineTableViewController
+
 -(NSMutableArray *)TimeLineModelArray{
     if (!_TimeLineModelArray) {
         NSString *fullPath = [[NSBundle mainBundle] pathForResource:@"FamilyGroup.plist" ofType:nil];
@@ -30,7 +31,7 @@
         }
         _TimeLineModelArray = [models copy];
     }
-    return _TimeLineModelArray;
+    return _TimeLineModelArray.mutableCopy;
 }
 
 - (void)viewDidLoad {

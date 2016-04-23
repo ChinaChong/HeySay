@@ -36,6 +36,10 @@
     
     [self pickIconImg];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
     [self registerKeyBoardNotification];
 }
 
@@ -164,8 +168,8 @@
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
     // 输入框位置动画加载
-    [UIView animateWithDuration:0.5 animations:^{
-        self.rootV.frame = CGRectMake(0,  -keyboardSize.height * 0.5, ScreenWidth, ScreenHeight);
+    [UIView animateWithDuration:0.2 animations:^{
+        self.rootV.frame = CGRectMake(0,  -(keyboardSize.height * 0.5 + 20), ScreenWidth, ScreenHeight);
     }];
     
     [self.rootV layoutSubviews];
@@ -216,7 +220,7 @@
     
     hud.label.text = NSLocalizedString(message, @"HUD done title");
     hud.square = YES;
-    [hud hideAnimated:YES afterDelay:1.0f];
+    [hud hideAnimated:YES afterDelay:0.5f];
 }
 
 // MARK:返回按钮点击事件
