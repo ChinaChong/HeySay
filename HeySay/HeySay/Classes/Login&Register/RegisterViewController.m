@@ -33,7 +33,8 @@
     
     self.registerBtn.layer.cornerRadius = 4;
     self.registerBtn.layer.masksToBounds = YES;
-    
+    self.passWordField.secureTextEntry = YES;
+    self.repeatPwdField.secureTextEntry = YES;
     [self pickIconImg];
     
 }
@@ -131,7 +132,19 @@
             }];
         }];
         
-        [self showAlertViewWithType:1 andTitle:@"注册成功"];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        hud.mode = MBProgressHUDModeCustomView;
+        UIImage *image = [[UIImage imageNamed:@"Done"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        hud.customView = [[UIImageView alloc] initWithImage:image];
+        hud.label.text = NSLocalizedString(@"注册成功", @"HUD done title");
+        hud.square = YES;
+        [hud hideAnimated:YES afterDelay:1.5f];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
     }];
 }
 

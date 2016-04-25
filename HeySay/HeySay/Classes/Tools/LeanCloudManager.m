@@ -138,7 +138,7 @@
 }
 
 // MARK:在UserInfo中创建新用户
-- (void)createNewUser:(UserModel *)userModel newUserObjectID:(fetchNewUserObject)newUserObjectID {
+- (void)createNewUser:(UserModel *)userModel newUserObjectID:(fetchNewUserObjectID)newUserObjectID {
     
     AVObject *user = [AVObject objectWithClassName:@"UserInfo"];
     
@@ -183,9 +183,6 @@
                 }];
             }
         }
-        
-        
-        
     }];
 }
 
@@ -202,7 +199,39 @@
     }];
 }
 
-
+// MARK:获取用户model
+- (void)fetchUserInfoWithAccount:(NSString *)account getUserModel:(fetchUserModel)userModel {
+    
+    __block typeof(userModel) weakValue1 = userModel;
+    
+    [self fetchAllIDArr:^(NSArray *allIdArr) {
+        
+        for (NSDictionary *dict in allIdArr) {
+            
+            if ([account isEqualToString:[[dict allKeys] lastObject]]) {
+                
+                NSString *objectID = dict[account];
+                
+                __block typeof(weakValue1) weakValue2 = weakValue1;
+                
+                [self fetchObjectWithObjectID:objectID className:UserInfoClassName getObject:^(id object) {
+                    
+                    AVObject *avObject = (AVObject *)object;
+                    
+                    UserModel *model = [[UserModel alloc] init];
+                    
+                    model.passWord = avObject[@"passWord"];
+                    model.nickName = avObject[@"nickName"];
+                    model.iconUrl  = avObject[@"icon"];
+                    model.objectID = avObject[@"objectId"];
+                    model.accountID = account;
+                    
+                    weakValue2(model);
+                }];
+            }
+        }
+    }];
+}
 
 
 @end

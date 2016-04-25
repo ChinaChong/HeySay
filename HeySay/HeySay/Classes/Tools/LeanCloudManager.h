@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "UserModel.h"
 
-typedef void (^fetchAllIDArray)      (NSArray *allIdArr);
-typedef void (^fetchImageURL)        (NSString *url);
-typedef void (^fetchNewUserObject)   (NSString *newUserObjectID);
-typedef void (^fetchPassWord)        (NSString *passWord);
 typedef void (^fetchObject)          (id object);
+typedef void (^fetchImageURL)        (NSString *url);
+typedef void (^fetchPassWord)        (NSString *passWord);
+typedef void (^fetchUserModel)       (UserModel *userModel);
+typedef void (^fetchAllIDArray)      (NSArray *allIdArr);
+typedef void (^fetchNewUserObjectID) (NSString *newUserObjectID);
 typedef void (^checkAccountDuplicate)(BOOL isDuplicate);
 
 @interface LeanCloudManager : NSObject
@@ -33,10 +34,12 @@ typedef void (^checkAccountDuplicate)(BOOL isDuplicate);
 - (void)getImageURLAndUploadImageWithName:(NSString *)name imageURL:(fetchImageURL)imageURL;
 
 // 在UserInfo中创建新用户
-- (void)createNewUser:(UserModel *)userModel newUserObjectID:(fetchNewUserObject)newUserObjectID;
+- (void)createNewUser:(UserModel *)userModel newUserObjectID:(fetchNewUserObjectID)newUserObjectID;
 
 // 通过账号取出密码
 - (void)fetchPassWordWithAccount:(NSString *)account getPassWord:(fetchPassWord)passWord;
 
+// 取出一个用户所有信息,赋值到model返回
+- (void)fetchUserInfoWithAccount:(NSString *)account getUserModel:(fetchUserModel)userModel;
 
 @end

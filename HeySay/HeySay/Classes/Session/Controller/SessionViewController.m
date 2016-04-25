@@ -8,6 +8,7 @@
 
 #import "SessionViewController.h"
 #import "ChatViewController.h"
+#import "MainTabBarController.h"
 
 @interface SessionViewController ()
 
@@ -22,9 +23,13 @@
 
 - (IBAction)jumpToChat:(id)sender {
     
-    ChatViewController *sessionVC = [[ChatViewController alloc] init];
+    ChatViewController *chatVC = [[ChatViewController alloc] init];
     
-    [self.navigationController pushViewController:sessionVC animated:YES];
+    MainTabBarController *mainTVC = (MainTabBarController *)self.tabBarController;
+    
+    chatVC.userAccount = mainTVC.userAccount;
+    
+    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 

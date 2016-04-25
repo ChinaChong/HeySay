@@ -9,6 +9,7 @@
 #import "ChatViewController.h"
 #import "ChatKeyBoardInputView.h"
 #import "MessageTableViewCell.h"
+#import "UserModel.h"
 
 @interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
@@ -42,7 +43,6 @@
     
     self.tabBarController.tabBar.hidden = YES;
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     self.tableView.allowsSelection = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
@@ -53,7 +53,7 @@
     [self.tableView registerClass:[MessageTableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 
-#pragma mark - 注册键盘的通知和发送按钮的通知
+#pragma mark - 注册各类通知
 - (void)registerNotification {
     // 使用NSNotificationCenter 注册观察当键盘要出现时
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -63,23 +63,70 @@
     
     // 点击发送按钮的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendMessage:) name:ChatViewSendMessageButtonClick object:nil];
+    
+    // 接收消息的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveMessage:) name:KNOTIFICATION_onMesssageChanged object:nil];
 }
 
-// MARK:点击发送按钮的方法
+// MARK:发送消息
 - (void)sendMessage:(NSNotification *)sender {
     
     /**
      *  发送
-     *
      *  1.判断信息不为空
-     *
-     *
      */
     
     NSString *text = (NSString *)[sender object];
     
-    [self.dataArray addObject:text];
+    ECTextMessageBody *messageBody = [[ECTextMessageBody alloc] initWithText:text];
     
+    NSString *receiver;
+#warning 缺少好友关系
+    if ([self.userAccount isEqualToString:@"123"]) {
+        
+        receiver = @"xxh";
+    }else{
+        receiver = @"123";
+    }
+    
+    ECMessage *message = [[ECMessage alloc] initWithReceiver:receiver body:messageBody];
+    
+    [self.dataArray addObject:message];// 添加数据源
+    
+    [[ECDevice sharedInstance].messageManager sendMessage:message progress:nil completion:^(ECError *error,
+                                                                                            ECMessage *amessage) {
+        
+        if (error.errorCode == ECErrorType_NoError) {
+            // 发送成功
+            // 滚动到最后一行
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0];
+            
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationFade)];
+            
+            if (self.dataArray.count > 1) {
+                
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionMiddle) animated:YES];
+            }
+        }else if(error.errorCode == ECErrorType_Have_Forbid || error.errorCode == ECErrorType_File_Have_Forbid)
+        {
+            //您已被群组禁言
+            NSLog(@"禁言");
+        }else{
+            //发送失败
+            NSLog(@"发送失败");
+        }
+    }];
+    
+}
+
+// MARK:接收消息
+-(void)onReceiveMessage:(NSNotification *)sender {
+    
+    ECMessage *message = (ECMessage *)[sender object];
+    
+    [self.dataArray addObject:message];// 添加数据源
+    
+    // 滚动到最后一行
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0];
     
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationFade)];
@@ -88,8 +135,6 @@
         
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionMiddle) animated:YES];
     }
-    
-    isSend = !isSend;
 }
 
 // MARK:键盘将要弹出
@@ -115,16 +160,12 @@
 // MARK:开始执行键盘改变后对应视图的变化
 - (void)beginMoveUpAnimation:(CGFloat)height{
     [UIView animateWithDuration:0.5 animations:^{
-        self.inputView.frame = CGRectMake(0, ScreenHeight - (height + NormalHeight), ScreenWidth, NormalHeight);
+        self.inputView.frame = CGRectMake(0, ScreenHeight - (height + 60), ScreenWidth, 60);
     }];
     
-    [self.bottomConstraint setConstant:height];
+    [self.bottomConstraint setConstant:height + 16];
     
     [self.inputView layoutIfNeeded];
-    
-//    if ([conversation loadAllMessages].count > 1) {
-//        [chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:conversation.loadAllMessages.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionMiddle) animated:YES];
-//    }
     
     if (self.dataArray.count > 1) {
         
@@ -135,7 +176,7 @@
 #pragma mark - 配置聊天输入框
 - (void)configInputView {
     
-    self.inputView = [[ChatKeyBoardInputView alloc] initWithFrame:CGRectMake(0, ScreenHeight - NormalHeight, ScreenWidth, NormalHeight)];
+    self.inputView = [[ChatKeyBoardInputView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 60, ScreenWidth, 60)];
     
     [self.view addSubview:self.inputView];
 }
@@ -166,15 +207,26 @@
     
     MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.isSend = isSend;
-    cell.msgContent = self.dataArray[indexPath.row];
+    ECMessage *message = self.dataArray[indexPath.row];
     
+    ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
+    
+    if ([message.from isEqualToString:self.userAccount]) {
+        cell.isSend = YES;
+    }else{
+        cell.isSend = NO;
+    }
+    cell.msgContent = msgBody.text;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *text = self.dataArray[indexPath.row];
+    ECMessage *message = self.dataArray[indexPath.row];
+    
+    ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
+    
+    NSString *text = msgBody.text;
     
     return [self stringHeight:text] + 30.0f;
 }

@@ -194,7 +194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nue-EU-3dw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-573" y="1049"/>
+            <point key="canvasLocation" x="-570" y="1049"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -345,7 +345,7 @@
         <scene sceneID="XAi-pg-9a3">
             <objects>
                 <navigationController id="bJV-GY-qCH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="通讯录" id="hQu-ka-zS6"/>
+                    <tabBarItem key="tabBarItem" title="通讯录" image="FriendNormal" selectedImage="FriendHighLight" id="hQu-ka-zS6"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uNJ-ra-Jo5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -410,7 +410,7 @@
         <scene sceneID="QFC-ZJ-aow">
             <objects>
                 <navigationController id="CD7-M7-Liu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="消息" id="mW5-7i-EKQ"/>
+                    <tabBarItem key="tabBarItem" title="消息" image="MessageNormal" selectedImage="MessageHighLight" id="mW5-7i-EKQ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EFU-cw-cZj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -450,13 +450,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jUX-x6-Dtz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="74" y="1773"/>
+            <point key="canvasLocation" x="75" y="1773"/>
         </scene>
         <!--我-->
         <scene sceneID="32d-8a-nPa">
             <objects>
                 <navigationController id="47h-Zo-ZlE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" id="EHp-5L-ixH"/>
+                    <tabBarItem key="tabBarItem" title="我" image="Mine" selectedImage="MineHighLight" id="EHp-5L-ixH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rP0-bB-dKw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -473,7 +473,7 @@
         <scene sceneID="N0h-Nb-xx3">
             <objects>
                 <navigationController id="aJM-Lg-e9p" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="朋友圈" id="z1e-yl-ron"/>
+                    <tabBarItem key="tabBarItem" title="朋友圈" image="TimeLineNormal" selectedImage="TimeLineHighLight" id="z1e-yl-ron"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="elB-d9-uBx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -526,6 +526,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="FriendHighLight" width="27" height="27"/>
+        <image name="FriendNormal" width="27" height="27"/>
+        <image name="MessageHighLight" width="27" height="27"/>
+        <image name="MessageNormal" width="27" height="27"/>
+        <image name="Mine" width="27" height="27"/>
+        <image name="MineHighLight" width="27" height="27"/>
+        <image name="TimeLineHighLight" width="37" height="27"/>
+        <image name="TimeLineNormal" width="37" height="27"/>
         <image name="backgroundImg01.jpg" width="800" height="1280"/>
         <image name="占位头像.png" width="200" height="200"/>
     </resources>

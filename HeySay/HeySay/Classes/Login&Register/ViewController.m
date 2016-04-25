@@ -139,6 +139,8 @@
     
     MainTabBarController *mainTBC = (MainTabBarController *)[mainStory instantiateViewControllerWithIdentifier:@"MainTabBarController"];
     
+    mainTBC.userAccount = self.accountField.text;
+    
     mainTBC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     __weak typeof(self) weakself = self;

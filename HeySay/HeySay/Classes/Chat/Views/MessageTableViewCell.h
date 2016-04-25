@@ -16,6 +16,7 @@
 // 内容
 @property (nonatomic,strong) NSString *msgContent;
 
-@property (nonatomic,strong)UILabel *contentLable;
+// 头像URL
+@property (nonatomic,copy) NSString *iconURL;
 
 @end

@@ -10,4 +10,7 @@
 
 @interface ChatViewController : UIViewController
 
+@property (nonatomic,copy) NSString *userAccount;
+@property (nonatomic,copy) NSString *friendAccount;
+
 @end

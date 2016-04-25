@@ -7,13 +7,14 @@
 //
 
 #import "MessageTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface MessageTableViewCell ()
 
 
 @property (nonatomic,strong)UIImageView *backGImageView;
 @property (nonatomic,strong)UIImageView *headImageView;
-
+@property (nonatomic,strong)UILabel *contentLable;
 
 
 @end
@@ -64,11 +65,17 @@
     _isSend = isSend;
     if (_isSend) {
         self.headImageView.frame = CGRectMake(cellRect.size.width - 50, 5, 38, 38);
-        self.headImageView.image = [UIImage imageNamed:@"02.jpg"];
+        if (self.iconURL) {
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.iconURL]];
+            return;
+        }
         self.headImageView.backgroundColor = [UIColor greenColor];
     }else{
         self.headImageView.frame = CGRectMake(10, 5, 38, 38);
-        self.headImageView.image = [UIImage imageNamed:@"022.jpg"];
+        if (self.iconURL) {
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.iconURL]];
+            return;
+        }
         self.headImageView.backgroundColor = [UIColor greenColor];
     }
 }

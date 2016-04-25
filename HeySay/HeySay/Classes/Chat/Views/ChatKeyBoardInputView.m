@@ -23,7 +23,7 @@
         
         self.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
         
-        self.textField = [[UITextField alloc] initWithFrame:CGRectMake(kMargin, kMargin, ScreenWidth - 100 - kMargin, NormalHeight - 2 * kMargin)];
+        self.textField = [[UITextField alloc] initWithFrame:CGRectMake(kMargin, kMargin, ScreenWidth - 100 - kMargin, frame.size.height - 2 * kMargin)];
         self.textField.placeholder = @"说点什么吧...";
         self.textField.backgroundColor = [UIColor lightGrayColor];
         self.textField.layer.cornerRadius = 4;
@@ -36,7 +36,7 @@
         sendBtn.backgroundColor = [UIColor magentaColor];
         sendBtn.layer.cornerRadius = 4;
         sendBtn.layer.masksToBounds = YES;
-        sendBtn.frame = CGRectMake(CGRectGetMaxX(self.textField.frame) + 8, kMargin, ScreenWidth - CGRectGetWidth(self.textField.frame) - 3 * kMargin, NormalHeight - 2 * kMargin);
+        sendBtn.frame = CGRectMake(CGRectGetMaxX(self.textField.frame) + 8, kMargin, ScreenWidth - CGRectGetWidth(self.textField.frame) - 3 * kMargin, frame.size.height - 2 * kMargin);
         [sendBtn setTitle:@"发送" forState:(UIControlStateNormal)];
         [sendBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         [self addSubview:sendBtn];
