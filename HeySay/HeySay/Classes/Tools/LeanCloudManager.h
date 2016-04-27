@@ -42,9 +42,9 @@ typedef void (^checkAccountDuplicate)(BOOL isDuplicate);
 - (void)createNewUser:(UserModel *)userModel newUserObjectID:(fetchNewUserObjectID)newUserObjectID;
 
 
-// 通过账号取出一个用户所有信息,赋值到model返回
+// 通过账号取出一个用户所有信息,返回UserModel
 - (void)fetchUserInfoWithAccount:(NSString *)account getUserModel:(fetchUserModel)userModel;
-// 获用户的所有好友信息
+// 获用户的所有好友信息,返回所有FriendModel
 - (void)fetchAllFriendsModelWithAccount:(NSString *)account getAllFriendsModel:(fetchFriendsInfo)allFriendsModel;
 
 // 给用户添加一个好友关系

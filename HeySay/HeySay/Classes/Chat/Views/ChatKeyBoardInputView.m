@@ -11,7 +11,7 @@
 
 @interface ChatKeyBoardInputView ()<UITextFieldDelegate>
 
-@property (nonatomic,strong) UITextField *textField;
+
 
 @end
 
@@ -33,7 +33,7 @@
         [self addSubview:self.textField];
         
         UIButton *sendBtn= [UIButton buttonWithType:(UIButtonTypeSystem)];
-        sendBtn.backgroundColor = [UIColor magentaColor];
+        sendBtn.backgroundColor = [UIColor colorWithRed:(138 / 256) green:(219 / 256) blue:(250 / 256) alpha:0.5];
         sendBtn.layer.cornerRadius = 4;
         sendBtn.layer.masksToBounds = YES;
         sendBtn.frame = CGRectMake(CGRectGetMaxX(self.textField.frame) + 8, kMargin, ScreenWidth - CGRectGetWidth(self.textField.frame) - 3 * kMargin, frame.size.height - 2 * kMargin);

@@ -12,6 +12,8 @@
 #import "UserModel.h"
 #import "ChatLogModel.h"
 #import "ChatLogManager.h"
+#import "SessionModel.h"
+#import "SessionListManager.h"
 
 @interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
@@ -21,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 @property (nonatomic,strong) ChatKeyBoardInputView *inputView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (nonatomic,strong) UITapGestureRecognizer *tap;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 
 @end
@@ -31,6 +33,8 @@
 - (NSMutableArray *)dataArray {
     
     if (_dataArray == nil) {
+        
+        [[ChatLogManager defaultManeger] openDatabaseWithUserAccount:self.userModel.accountID];
         
         NSMutableArray *arr = [[ChatLogManager defaultManeger] selectChatLogWithTableName:self.friendModel.accountID];
         
@@ -57,26 +61,36 @@
     self.tableView.allowsSelection = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     
     [self configLeftBarBtn];
     [self configInputView];
     [self registerNotification];
     [self.tableView registerClass:[MessageTableViewCell class] forCellReuseIdentifier:@"Cell"];
+//    self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.dataArray.count > 1) {
+        
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+    }
 }
 
 #pragma mark - 注册各类通知
 - (void)registerNotification {
     // 使用NSNotificationCenter 注册观察当键盘要出现时
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChatKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     // 使用NSNotificationCenter 注册观察当键盘要隐藏时
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChatKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     // 点击发送按钮的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendMessage:) name:ChatViewSendMessageButtonClick object:nil];
     
     // 接收消息的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveMessage:) name:KNOTIFICATION_onMesssageChanged object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onChatReceiveMessage:) name:KNOTIFICATION_onMesssageChanged object:nil];
 }
 
 // MARK:发送消息
@@ -97,7 +111,11 @@
     NSTimeInterval tmp =[date timeIntervalSince1970]*1000;
     message.timestamp = [NSString stringWithFormat:@"%lld", (long long)tmp];
     
-    [self.dataArray addObject:message];// 添加数据源
+    ChatLogModel *chatModel = [[ChatLogModel alloc] init];
+    chatModel.isSend = YES;
+    chatModel.message = text;
+    
+    [self.dataArray addObject:chatModel];// 添加数据源
     
     [[ECDevice sharedInstance].messageManager sendMessage:message progress:nil completion:^(ECError *error,
                                                                                             ECMessage *amessage) {
@@ -109,8 +127,27 @@
             ChatLogModel *model = [[ChatLogModel alloc] init];
             model.isSend = YES;
             model.message = msgBody.text;
+            [[ChatLogManager defaultManeger] openDatabaseWithUserAccount:self.userModel.accountID];
             [[ChatLogManager defaultManeger] createTableWithTableName:self.friendModel.accountID];
             [[ChatLogManager defaultManeger] insertChatLogWithChatLogModel:model withTableName:self.friendModel.accountID];
+            
+            // 会话
+            [[LeanCloudManager defaultManeger] fetchUserInfoWithAccount:self.friendModel.accountID getUserModel:^(UserModel *userModel) {
+                
+                SessionModel *sessionModel = [[SessionModel alloc] init];
+                
+                sessionModel.friendNickName = userModel.nickName;
+                sessionModel.friendIconURL = userModel.iconUrl;
+                ECTextMessageBody *msgBody = (ECTextMessageBody *)amessage.messageBody;
+                sessionModel.endChatLog = msgBody.text;
+                sessionModel.endTime = message.timestamp;
+                
+                // 插入数据库
+                [[SessionListManager defaultManeger] openDatabaseWithUserAccount:self.userModel.accountID];
+                [[SessionListManager defaultManeger] createTable];
+                [[SessionListManager defaultManeger] insertSessionWithSessionModel:sessionModel];
+                [[NSNotificationCenter defaultCenter] postNotificationName:InertSessionOK object:nil];
+            }];
             
             // 发送成功
             // 滚动到最后一行
@@ -135,7 +172,7 @@
 }
 
 // MARK:接收消息
--(void)onReceiveMessage:(NSNotification *)sender {
+-(void)onChatReceiveMessage:(NSNotification *)sender {
     
     ECMessage *message = (ECMessage *)[sender object];
     
@@ -147,14 +184,12 @@
     
     NSLog(@"%@",dateString);
     
-    [self.dataArray addObject:message];// 添加数据源
-    
     ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
     ChatLogModel *model = [[ChatLogModel alloc] init];
     model.isSend = NO;
     model.message = msgBody.text;
-    [[ChatLogManager defaultManeger] createTableWithTableName:self.friendModel.accountID];
-    [[ChatLogManager defaultManeger] insertChatLogWithChatLogModel:model withTableName:self.friendModel.accountID];
+    
+    [self.dataArray addObject:model];// 添加数据源
     
     // 滚动到最后一行
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0];
@@ -167,7 +202,7 @@
     }
 }
 
-//时间显示内容
+// MARK:!!!!!!!!!!!!!!!时间显示内容
 -(NSString *)getDateDisplayString:(long long) miliSeconds{
     
     NSTimeInterval tempMilli = miliSeconds;
@@ -195,7 +230,7 @@
 }
 
 // MARK:键盘将要弹出
-- (void)didKeyboardWillShow:(NSNotification *)notification{
+- (void)didChatKeyboardWillShow:(NSNotification *)notification{
     NSDictionary *info = [notification userInfo];
     
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
@@ -205,7 +240,7 @@
 }
 
 // MARK:键盘将要隐藏
-- (void)didKeyboardWillHide:(NSNotification *)notification{
+- (void)didChatKeyboardWillHide:(NSNotification *)notification{
     [self beginMoveUpAnimation:0];
 }
 
@@ -218,23 +253,34 @@
 - (void)beginMoveUpAnimation:(CGFloat)height{
     [UIView animateWithDuration:0.5 animations:^{
         self.inputView.frame = CGRectMake(0, ScreenHeight - (height + 60), ScreenWidth, 60);
+        [self.bottomConstraint setConstant:height + 16];
     }];
     
-    [self.bottomConstraint setConstant:height + 16];
     
     [self.inputView layoutIfNeeded];
     
-    if (self.dataArray.count > 1) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.001 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionMiddle) animated:YES];
-    }
+        if (self.dataArray.count > 1) {
+            
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+        }
+        
+    });
 }
+
+#pragma mark - 键盘回收
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    [self.inputView endEditing:YES];
+//}
 
 #pragma mark - 配置聊天输入框
 - (void)configInputView {
     
     self.inputView = [[ChatKeyBoardInputView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 60, ScreenWidth, 60)];
-    
+    self.inputView.backgroundColor =  [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1];
+    self.inputView.textField.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.inputView];
 }
 
@@ -264,28 +310,28 @@
     
     MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    ECMessage *message = self.dataArray[indexPath.row];
+    ChatLogModel *model = self.dataArray[indexPath.row];
     
-    ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
+//    ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
     
-    if ([message.from isEqualToString:self.userModel.accountID]) {
+    if (model.isSend) {
         cell.iconURL = self.userModel.iconUrl;
         cell.isSend = YES;
     }else{
         cell.iconURL = self.friendModel.iconURL;
         cell.isSend = NO;
     }
-    cell.msgContent = msgBody.text;
+    cell.msgContent = model.message;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ECMessage *message = self.dataArray[indexPath.row];
+    ChatLogModel *model = self.dataArray[indexPath.row];
     
-    ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
+//    ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
     
-    NSString *text = msgBody.text;
+    NSString *text = model.message;
     
     return [self stringHeight:text] + 30.0f;
 }
@@ -295,8 +341,6 @@
     
     CGRect temp = [aString boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width * 2 / 3 - 40, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil];
     
-    NSLog(@"计算宽:%lf",[UIScreen mainScreen].bounds.size.width * 2 / 3 - 40);
-    
     return temp.size.height;
 }
 
@@ -304,12 +348,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     
     [self removeRorKeyboardNotifications];
-}
-
-#pragma mark - 键盘回收
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {

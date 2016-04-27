@@ -13,6 +13,6 @@
 @property (nonatomic,copy) NSString *friendNickName;
 @property (nonatomic,copy) NSString *friendIconURL;
 @property (nonatomic,copy) NSString *endTime;
-@property (nonatomic,strong) NSMutableArray *endChatLog;
+@property (nonatomic,copy) NSString *endChatLog;
 
 @end

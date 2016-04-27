@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class SessionModel;
 @interface SessionListManager : NSObject
+
++ (instancetype)defaultManeger;
+
+- (void)insertSessionWithSessionModel:(SessionModel *)sessionModel;
+
+- (NSMutableArray *)selectSession;
+
+- (void)createTable;
+
+- (void)openDatabaseWithUserAccount:(NSString *)userAccount;
 
 @end

@@ -7,6 +7,12 @@
 //
 
 #import "MainTabBarController.h"
+#import "ChatLogModel.h"
+#import "ChatLogManager.h"
+#import "FriendModel.h"
+#import "SessionModel.h"
+#import "SessionListManager.h"
+#import "UserModel.h"
 
 @interface MainTabBarController ()
 
@@ -22,11 +28,11 @@
     }
     
     // 接收消息的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveMessage:) name:KNOTIFICATION_onMesssageChanged object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMyReceiveMessage:) name:KNOTIFICATION_onMesssageChanged object:nil];
 }
 
 // MARK:接收加好友消息
-- (void)onReceiveMessage:(NSNotification *)sender {
+- (void)onMyReceiveMessage:(NSNotification *)sender {
     
     ECMessage *message = (ECMessage *)[sender object];
     
@@ -37,6 +43,34 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:AccpetRequest object:nil];
     }else if([message.userData isEqualToString:RejectRequest]){
         [self showMBProgressHUDWithType:0 andMessage:[NSString stringWithFormat:@"%@拒绝了你的请求",message.from]];
+    }else if (!message.userData) {
+            
+        ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
+        ChatLogModel *model = [[ChatLogModel alloc] init];
+        model.isSend = NO;
+        model.message = msgBody.text;
+        [[ChatLogManager defaultManeger] openDatabaseWithUserAccount:self.userAccount];
+        [[ChatLogManager defaultManeger] createTableWithTableName:message.from];
+        [[ChatLogManager defaultManeger] insertChatLogWithChatLogModel:model withTableName:message.from];
+        
+        // 会话
+        [[LeanCloudManager defaultManeger] fetchUserInfoWithAccount:message.from getUserModel:^(UserModel *userModel) {
+            
+            SessionModel *sessionModel = [[SessionModel alloc] init];
+            
+            sessionModel.friendNickName = userModel.nickName;
+            sessionModel.friendIconURL = userModel.iconUrl;
+            ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
+            sessionModel.endChatLog = msgBody.text;
+            sessionModel.endTime = message.timestamp;
+            
+            // 插入数据库
+            [[SessionListManager defaultManeger] openDatabaseWithUserAccount:self.userAccount];
+            [[SessionListManager defaultManeger] createTable];
+            [[SessionListManager defaultManeger] insertSessionWithSessionModel:sessionModel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:ReceiveMessage object:nil];
+        }];
+        
     }
 }
 

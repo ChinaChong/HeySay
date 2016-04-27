@@ -10,4 +10,11 @@
 
 @interface SessionTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *iconView;
+
+@property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endMessageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
+
+
 @end

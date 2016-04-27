@@ -7,11 +7,20 @@
 //
 
 #import "MineViewController.h"
+#import "MainTabBarController.h"
+#import "PersonInfoViewController.h"
+#import "AboutUsViewController.h"
 #import "ViewController.h"
+#import "UserModel.h"
+#import "UIImageView+WebCache.h"
 
-@interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MineViewController ()
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *mineImgV;
+@property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *aboutUs;
+@property (weak, nonatomic) IBOutlet UIButton *signOut;
+@property (weak, nonatomic) IBOutlet UIButton *exitBtn;
 
 
 @end
@@ -21,24 +30,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self .tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self configBtns];
+    
+    [self configInfo];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 1;
+- (void)configBtns {
+    self.aboutUs.layer.cornerRadius = 4;
+    self.signOut.layer.cornerRadius = 4;
+    self.exitBtn.layer.cornerRadius = 4;
+    self.aboutUs.layer.masksToBounds = YES;
+    self.signOut.layer.masksToBounds = YES;
+    self.exitBtn.layer.masksToBounds = YES;
+    self.mineImgV.layer.cornerRadius = self.mineImgV.bounds.size.width * 0.5;
+    self.mineImgV.layer.masksToBounds = YES;
+    self.mineImgV.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(personInfo)];
+    [self.mineImgV addGestureRecognizer:tap];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    
-    cell.textLabel.text = @"注销";
-    
-    return cell;
+- (void)configInfo {
+    MainTabBarController *mainTBC = (MainTabBarController *)self.tabBarController;
+    [[LeanCloudManager defaultManeger] fetchUserInfoWithAccount:mainTBC.userAccount getUserModel:^(UserModel *userModel) {
+        
+        [self.mineImgV sd_setImageWithURL:[NSURL URLWithString:userModel.iconUrl]];
+        self.nickNameLabel.text = userModel.nickName;
+    }];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)SignOut {
     
     UIStoryboard *mainStory = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
@@ -49,29 +69,33 @@
     MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"正在注销...";
     hud.removeFromSuperViewOnHide = YES;
-    
-    __weak typeof(self) weakself = self;
-    
-    [self presentViewController:VC animated:YES completion:^{
-        
+    __block typeof(self) weakself = self;
+    [[ECDevice sharedInstance] logout:^(ECError *error) {
+        //登出结果
+        NSLog(@"%@",error);
         __strong typeof(weakself) strongSelf = weakself;
+        [self presentViewController:VC animated:YES completion:nil];
+        
         [MBProgressHUD hideHUDForView:strongSelf.view animated:YES];
+        
+        
     }];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)personInfo {
+    
+}
+- (IBAction)aboutUs:(id)sender {
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)signOutAction:(id)sender {
+    [self SignOut];
 }
-*/
+
+- (IBAction)exitAction:(id)sender {
+    abort();
+}
 
 @end

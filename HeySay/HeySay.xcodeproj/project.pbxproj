@@ -73,6 +73,13 @@
 		3CD073361CCF61F5008ADF21 /* ChatLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD073351CCF61F5008ADF21 /* ChatLogModel.m */; };
 		3CD073391CCF6278008ADF21 /* ChatLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD073381CCF6278008ADF21 /* ChatLogManager.m */; };
 		3CD0735F1CCFAB57008ADF21 /* SessionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0735E1CCFAB57008ADF21 /* SessionModel.m */; };
+		3CF4AE641CD0A33F00462255 /* SessionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4AE621CD0A33F00462255 /* SessionTableViewCell.m */; };
+		3CF4AE651CD0A33F00462255 /* SessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF4AE631CD0A33F00462255 /* SessionTableViewCell.xib */; };
+		3CF4AE681CD0A7BF00462255 /* SessionListManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4AE671CD0A7BF00462255 /* SessionListManager.m */; };
+		3CF4AE711CD10A3100462255 /* PersonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4AE6F1CD10A3100462255 /* PersonInfoViewController.m */; };
+		3CF4AE721CD10A3100462255 /* PersonInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF4AE701CD10A3100462255 /* PersonInfoViewController.xib */; };
+		3CF4AE761CD10A4300462255 /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4AE741CD10A4300462255 /* AboutUsViewController.m */; };
+		3CF4AE771CD10A4300462255 /* AboutUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF4AE751CD10A4300462255 /* AboutUsViewController.xib */; };
 		42D6AE3F901201BC44806FA2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDFBC959DFB9DD69D2409AB /* libPods.a */; };
 		C23166AC1CCB219A00E39DE9 /* CCPSDKBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C231666F1CCB219A00E39DE9 /* CCPSDKBundle.bundle */; };
 		C23166AD1CCB219A00E39DE9 /* libCCPiPhoneSDK_FullLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23166801CCB219A00E39DE9 /* libCCPiPhoneSDK_FullLib.a */; };
@@ -202,6 +209,17 @@
 		3CD073381CCF6278008ADF21 /* ChatLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLogManager.m; sourceTree = "<group>"; };
 		3CD0735D1CCFAB57008ADF21 /* SessionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionModel.h; sourceTree = "<group>"; };
 		3CD0735E1CCFAB57008ADF21 /* SessionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionModel.m; sourceTree = "<group>"; };
+		3CF4AE611CD0A33F00462255 /* SessionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionTableViewCell.h; sourceTree = "<group>"; };
+		3CF4AE621CD0A33F00462255 /* SessionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionTableViewCell.m; sourceTree = "<group>"; };
+		3CF4AE631CD0A33F00462255 /* SessionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionTableViewCell.xib; sourceTree = "<group>"; };
+		3CF4AE661CD0A7BF00462255 /* SessionListManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionListManager.h; sourceTree = "<group>"; };
+		3CF4AE671CD0A7BF00462255 /* SessionListManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionListManager.m; sourceTree = "<group>"; };
+		3CF4AE6E1CD10A3100462255 /* PersonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoViewController.h; sourceTree = "<group>"; };
+		3CF4AE6F1CD10A3100462255 /* PersonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoViewController.m; sourceTree = "<group>"; };
+		3CF4AE701CD10A3100462255 /* PersonInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonInfoViewController.xib; sourceTree = "<group>"; };
+		3CF4AE731CD10A4300462255 /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
+		3CF4AE741CD10A4300462255 /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
+		3CF4AE751CD10A4300462255 /* AboutUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsViewController.xib; sourceTree = "<group>"; };
 		781EE794A961C6017E0DEDB5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8182D54A00801ECC9D21F5FF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C231666F1CCB219A00E39DE9 /* CCPSDKBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CCPSDKBundle.bundle; sourceTree = "<group>"; };
@@ -552,6 +570,12 @@
 				3CA387661CC47490008B6CFC /* .gitignore */,
 				3CCD01941CC65A67004C5703 /* MineViewController.h */,
 				3CCD01951CC65A67004C5703 /* MineViewController.m */,
+				3CF4AE6E1CD10A3100462255 /* PersonInfoViewController.h */,
+				3CF4AE6F1CD10A3100462255 /* PersonInfoViewController.m */,
+				3CF4AE701CD10A3100462255 /* PersonInfoViewController.xib */,
+				3CF4AE731CD10A4300462255 /* AboutUsViewController.h */,
+				3CF4AE741CD10A4300462255 /* AboutUsViewController.m */,
+				3CF4AE751CD10A4300462255 /* AboutUsViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -607,6 +631,9 @@
 			isa = PBXGroup;
 			children = (
 				3CA387711CC47490008B6CFC /* .gitignore */,
+				3CF4AE611CD0A33F00462255 /* SessionTableViewCell.h */,
+				3CF4AE621CD0A33F00462255 /* SessionTableViewCell.m */,
+				3CF4AE631CD0A33F00462255 /* SessionTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -662,6 +689,8 @@
 				3CCD01781CC6058E004C5703 /* DeviceDelegateHelper.m */,
 				3CD073371CCF6278008ADF21 /* ChatLogManager.h */,
 				3CD073381CCF6278008ADF21 /* ChatLogManager.m */,
+				3CF4AE661CD0A7BF00462255 /* SessionListManager.h */,
+				3CF4AE671CD0A7BF00462255 /* SessionListManager.m */,
 				3CBECFAB1CC8826300B83B5F /* LeanCloudManager.h */,
 				3CBECFAC1CC8826300B83B5F /* LeanCloudManager.m */,
 				3CBECFB81CC90EE300B83B5F /* UserModel.h */,
@@ -935,6 +964,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C23166C91CCB24AF00E39DE9 /* 林峰.png in Resources */,
+				3CF4AE721CD10A3100462255 /* PersonInfoViewController.xib in Resources */,
 				3CA387811CC47490008B6CFC /* .gitignore in Resources */,
 				C23166CD1CCB24AF00E39DE9 /* FamilyGroup.plist in Resources */,
 				3CCD01891CC61A90004C5703 /* backgroundImg01.jpg in Resources */,
@@ -959,6 +989,7 @@
 				3CA3877D1CC47490008B6CFC /* .gitignore in Resources */,
 				C23166D11CCB24AF00E39DE9 /* picture2.png in Resources */,
 				C23166D21CCB24AF00E39DE9 /* picture3.png in Resources */,
+				3CF4AE771CD10A4300462255 /* AboutUsViewController.xib in Resources */,
 				3CA387861CC47490008B6CFC /* .gitignore in Resources */,
 				3CA387AB1CC4E29D008B6CFC /* SessionViewController.xib in Resources */,
 				3CCD01831CC60E87004C5703 /* 用户2.png in Resources */,
@@ -969,6 +1000,7 @@
 				C23166D41CCB24AF00E39DE9 /* reply.png in Resources */,
 				3CA387851CC47490008B6CFC /* .gitignore in Resources */,
 				C23166D01CCB24AF00E39DE9 /* picture1.png in Resources */,
+				3CF4AE651CD0A33F00462255 /* SessionTableViewCell.xib in Resources */,
 				3CA3874E1CC473F5008B6CFC /* LoginBackgroundImg.png in Resources */,
 				3CA3877B1CC47490008B6CFC /* .gitignore in Resources */,
 				3CA387791CC47490008B6CFC /* .gitignore in Resources */,
@@ -1055,6 +1087,7 @@
 				3CD073361CCF61F5008ADF21 /* ChatLogModel.m in Sources */,
 				3C2758091CCB1BD900E2FFCF /* TimeLineTableViewController.m in Sources */,
 				3CBECFBA1CC90EE300B83B5F /* UserModel.m in Sources */,
+				3CF4AE681CD0A7BF00462255 /* SessionListManager.m in Sources */,
 				3CA387AE1CC4E498008B6CFC /* ChatKeyBoardInputView.m in Sources */,
 				3CCD017A1CC6058E004C5703 /* DeviceDelegateHelper.m in Sources */,
 				C23166B61CCB229600E39DE9 /* TimeLineCell.m in Sources */,
@@ -1062,11 +1095,14 @@
 				3CCD01931CC65902004C5703 /* MainTabBarController.m in Sources */,
 				3CA385E41CC467AC008B6CFC /* main.m in Sources */,
 				3CC084BB1CCDBC640006D71C /* FriendModel.m in Sources */,
+				3CF4AE761CD10A4300462255 /* AboutUsViewController.m in Sources */,
 				3CA387A51CC4E1B1008B6CFC /* ChatViewController.m in Sources */,
 				3CC084B51CCDB9E90006D71C /* AddFriendsViewController.m in Sources */,
+				3CF4AE711CD10A3100462255 /* PersonInfoViewController.m in Sources */,
 				3CBECFB31CC8BCC700B83B5F /* NSString+DocumentPath.m in Sources */,
 				3CA8F4B71CC9C8E200B96088 /* MBProgressHUD.m in Sources */,
 				3CCD01811CC60BDD004C5703 /* RegisterViewController.m in Sources */,
+				3CF4AE641CD0A33F00462255 /* SessionTableViewCell.m in Sources */,
 				3CA387AA1CC4E29D008B6CFC /* SessionViewController.m in Sources */,
 				C23166B21CCB228D00E39DE9 /* TimeLineFrame.m in Sources */,
 				3CD0735F1CCFAB57008ADF21 /* SessionModel.m in Sources */,
@@ -1212,7 +1248,7 @@
 					"$(PROJECT_DIR)/HeySay/thirdparty/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/HeySay/SDK/YTX_iOS_Full_SDK_v5.2.0r8/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ChinaChong.HeySayhahaha;
+				PRODUCT_BUNDLE_IDENTIFIER = ChinaChong.HeySayhahahaasd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1242,7 +1278,7 @@
 					"$(PROJECT_DIR)/HeySay/thirdparty/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/HeySay/SDK/YTX_iOS_Full_SDK_v5.2.0r8/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ChinaChong.HeySayhahaha;
+				PRODUCT_BUNDLE_IDENTIFIER = ChinaChong.HeySayhahahaasd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

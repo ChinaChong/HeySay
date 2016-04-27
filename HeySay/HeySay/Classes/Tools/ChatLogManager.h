@@ -19,4 +19,6 @@
 
 - (void)createTableWithTableName:(NSString *)tableName;
 
+- (void)openDatabaseWithUserAccount:(NSString *)userAccount;
+
 @end

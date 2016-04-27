@@ -11,5 +11,6 @@
 @interface ChatKeyBoardInputView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame;
+@property (nonatomic,strong) UITextField *textField;
 
 @end

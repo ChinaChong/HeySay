@@ -22,36 +22,32 @@ static FMDatabase *database;
     dispatch_once(&onceToken, ^{
         
         manager = [[ChatLogManager alloc] init];
-        
-//        NSFileManager *fileManager = [NSFileManager defaultManager];
-        
-//        NSString *path = [[NSString documentPath] stringByAppendingPathComponent:@"chatLog.sqlite"];
-//        
-//        if (![fileManager fileExistsAtPath:path]) {
-            [manager createDatabase];
-//        }
-        
     });
     
     return manager;
 }
 
-- (void)createDatabase {
-    NSString *path = [[NSString documentPath] stringByAppendingPathComponent:@"chatLog.sqlite"];
+- (void)openDatabaseWithUserAccount:(NSString *)userAccount {
+
+    NSString *path = [[NSString documentPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"chatLog_%@.sqlite",userAccount]];
+        
     database = [FMDatabase databaseWithPath:path];
     NSLog(@"路径+++:%@",path);
     [database open];
+
 }
+
 
 - (void)createTableWithTableName:(NSString *)tableName {
     
     if ([database open]) {
         
-        if (![self tableExists:database tableName:[NSString stringWithFormat:@"%@_chatLog",tableName]]) {
-            
-            NSString *sqlite = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@_chatLog (isSend integer, message text);",tableName];
+        if (![self tableExists:database tableName:[NSString stringWithFormat:@"chatLog_%@",tableName]]) {
+            NSString *name = [NSString stringWithFormat:@"chatLog_%@",tableName];
+            NSString *sqlite = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (isSend integer, message text);",name];
             
             [database executeUpdate:sqlite];
+            
             [database close];
         }
         [database close];
@@ -62,8 +58,12 @@ static FMDatabase *database;
     
     if ([database open]) {
         
-        BOOL insert = [database executeUpdateWithFormat:@"insert into %@_chatLog (isSend,message) values (%ld,%@)",tableName,@(ChatLogModel.isSend).integerValue,ChatLogModel.message];
-        NSLog(@"insert:%@",(insert == 1? @"成功" : @"失败"));
+        NSString *name = [NSString stringWithFormat:@"chatLog_%@",tableName];
+        
+        NSString *sqlite = [NSString stringWithFormat:@"insert into %@ (isSend,message) values ('%ld','%@')",name,@(ChatLogModel.isSend).integerValue,ChatLogModel.message];
+        
+        BOOL insert = [database executeUpdate:sqlite];
+        NSLog(@"insert聊天记录:%@",(insert == 1? @"成功" : @"失败"));
         
         [database close];
     }
@@ -72,7 +72,11 @@ static FMDatabase *database;
 - (NSMutableArray *)selectChatLogWithTableName:(NSString *)tableName {
     if ([database open]) {
         
-        FMResultSet *resultSet = [database executeQueryWithFormat:@"select * from %@_chatLog",tableName];
+        NSString *name = [NSString stringWithFormat:@"chatLog_%@",tableName];
+        
+        NSString *sqlite = [NSString stringWithFormat:@"select * from %@",name];
+        
+        FMResultSet *resultSet = [database executeQuery:sqlite];
         NSMutableArray *array = [NSMutableArray array];
         while ([resultSet next]) {
             NSInteger flag = [resultSet intForColumn:@"isSend"];

@@ -44,6 +44,8 @@
 #define AllIDObjectID     @"571841c01ea493006cd5fb76"
 #define AllIDArrayName    @"allID"
 #define UserInfoClassName @"UserInfo"
+#define InertSessionOK    @"InertSessionOK"
+#define ReceiveMessage    @"ReceiveMessage"
 
 //MARKL TimeLine相关
 #define apadding       10

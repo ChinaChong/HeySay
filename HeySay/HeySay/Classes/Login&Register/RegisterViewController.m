@@ -168,14 +168,14 @@
 - (void)registerKeyBoardNotification {
     
     // 使用NSNotificationCenter 注册观察当键盘要出现时
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didregisterKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     // 使用NSNotificationCenter 注册观察当键盘要隐藏时
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didregisterKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 // MARK:键盘将要弹出
-- (void)didKeyboardWillShow:(NSNotification *)notification{
+- (void)didregisterKeyboardWillShow:(NSNotification *)notification{
     NSDictionary *info = [notification userInfo];
     
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
@@ -189,7 +189,7 @@
 }
 
 // MARK:键盘将要隐藏
-- (void)didKeyboardWillHide:(NSNotification *)notification{
+- (void)didregisterKeyboardWillHide:(NSNotification *)notification{
     [self beginMoveUpAnimation:0];
 }
 
