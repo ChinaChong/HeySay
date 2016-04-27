@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class UserModel;
+@class FriendModel;
 @interface ChatViewController : UIViewController
 
-@property (nonatomic,copy) NSString *userAccount;
-@property (nonatomic,copy) NSString *friendAccount;
+@property (nonatomic,strong) UserModel   *userModel;
+@property (nonatomic,strong) FriendModel *friendModel;
 
 @end

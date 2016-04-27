@@ -97,9 +97,7 @@
                 return;
             }
         }
-        
         weakValue(NO);
-        
     }];
 }
 
@@ -142,10 +140,12 @@
     
     AVObject *user = [AVObject objectWithClassName:@"UserInfo"];
     
-    [user setObject:userModel.nickName forKey:@"nickName"];
-    [user setObject:userModel.passWord forKey:@"passWord"];
+    [user setObject:userModel.nickName  forKey:@"nickName"];
+    [user setObject:userModel.passWord  forKey:@"passWord"];
     [user setObject:userModel.accountID forKey:@"accountID"];
-    [user setObject:userModel.iconUrl forKey:@"icon"];
+    [user setObject:userModel.iconUrl   forKey:@"icon"];
+    [user setObject:userModel.friends   forKey:@"relation"];
+    [user setObject:userModel.chatLog   forKey:@"chatLog"];
     
     __block typeof(newUserObjectID) weakObejctID = newUserObjectID;
     
@@ -220,11 +220,13 @@
                     
                     UserModel *model = [[UserModel alloc] init];
                     
-                    model.passWord = avObject[@"passWord"];
-                    model.nickName = avObject[@"nickName"];
-                    model.iconUrl  = avObject[@"icon"];
-                    model.objectID = avObject[@"objectId"];
+                    model.passWord  = avObject[@"passWord"];
+                    model.nickName  = avObject[@"nickName"];
+                    model.iconUrl   = avObject[@"icon"];
+                    model.objectID  = avObject[@"objectId"];
                     model.accountID = account;
+                    model.friends   = avObject[@"relation"];
+                    model.chatLog   = avObject[@"chatLog"];
                     
                     weakValue2(model);
                 }];
@@ -233,5 +235,165 @@
     }];
 }
 
+// MARK:给用户添加一个好友关系
+- (void)insertFriendAccount:(NSString *)friendAccount userAccount:(NSString *)userAccount friendIsSucceeded:(isSucceeded)friendIsSucceeded userIsSucceeded:(isSucceeded)userIsSucceeded {
+    
+    [self fetchAllIDArr:^(NSArray *allIdArr) {
+        
+        
+        for (NSDictionary *dict in allIdArr) {
+            NSString *act = [[dict allKeys] lastObject];
+            
+            // 第一层找好友objID
+            if ([friendAccount isEqualToString:act]) {
+                
+                NSString *objID = dict[friendAccount];
+                // 第二层找用户的objID
+                for (NSDictionary *dic in allIdArr) {
+                    if ([userAccount isEqualToString:[[dic allKeys] lastObject]]) {
+                        NSString *userObjID = dic[userAccount];
+                        
+                        NSDictionary *relation = @{userAccount:userObjID};// 换成用户的account和objID
+                        
+                        // 把user存进friend中
+                        [self fetchObjectWithObjectID:objID className:UserInfoClassName getObject:^(id object) {
+                            
+                            AVObject *obj = (AVObject *)object;
+                            NSMutableArray *array = [NSMutableArray array];
+                            
+                            if (obj[@"relation"]) {
+                                array = (NSMutableArray *)obj[@"relation"];
+                            }
+                            
+                            [array addObject:relation];
+                            [obj setObject:array forKey:@"relation"];
+                            
+                            [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                
+                                friendIsSucceeded(succeeded);
+                            }];
+                        }];
+                        
+                        // 把friend存进user中
+                        NSDictionary *relation2 = @{friendAccount:objID};
+                        [self fetchObjectWithObjectID:userObjID className:UserInfoClassName getObject:^(id object) {
+                            
+                            AVObject *obj = (AVObject *)object;
+                            NSMutableArray *array = [NSMutableArray array];
+                            
+                            if (obj[@"relation"]) {
+                                array = (NSMutableArray *)obj[@"relation"];
+                            }
+                            
+                            [array addObject:relation2];
+                            [obj setObject:array forKey:@"relation"];
+                            
+                            [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                
+                                userIsSucceeded(succeeded);
+                            }];
+                        }];
+                    }
+                }
+            }
+        }
+    }];
+}
+
+// MARK:获用户的所有好友信息
+- (void)fetchAllFriendsModelWithAccount:(NSString *)account getAllFriendsModel:(fetchFriendsInfo)allFriendsModel {
+    
+    [self fetchAllIDArr:^(NSArray *allIdArr) {
+        
+        
+        for (NSDictionary *dict in allIdArr) {
+            NSString *act = [[dict allKeys] lastObject];
+            
+            if ([account isEqualToString:act]) {
+                NSString *objcID = dict[account];
+                [self fetchObjectWithObjectID:objcID className:UserInfoClassName getObject:^(id object) {
+                    
+                    AVObject *obj = (AVObject *)object;
+                    NSMutableArray *relation = [NSMutableArray array];
+                    NSMutableArray *array = [NSMutableArray array];
+                    if (obj[@"relation"]) {
+                        relation = (NSMutableArray *)obj[@"relation"];
+                        for (NSDictionary *dict in relation) {
+                            NSString *objID = [dict.allValues lastObject];
+                            
+                            __block typeof(array) weakArr = array;
+                            [self fetchObjectWithObjectID:objID className:UserInfoClassName getObject:^(id object) {
+                                
+                                FriendModel *model = [[FriendModel alloc] init];
+                                AVObject *friendObj = (AVObject *)object;
+                                model.nickName  = friendObj[@"nickName"];
+                                model.iconURL   = friendObj[@"icon"];
+                                model.accountID = friendObj[@"accountID"];
+                                model.objectID  = friendObj.objectId;
+                                
+                                [weakArr addObject:model];
+                                if (weakArr.count == relation.count) {
+                                    
+                                    allFriendsModel(weakArr);
+                                }
+                            }];
+                        }
+                    }
+                }];
+            }
+        }
+    }];
+    
+}
+
+// MARK:删除用户的指定账号好友
+- (void)deleteFriendWithUserAccount:(NSString *)userAccount andFriendAccount:(NSString *)friendAccount completion:(isSucceeded)isSucceeded {
+    
+    [self fetchObjectWithObjectID:userAccount className:UserInfoClassName getObject:^(id object) {
+        
+        AVObject *obj = (AVObject *)object;
+        NSMutableArray *relation = [NSMutableArray array];
+        
+        if (obj[@"relation"]) {
+            // 取出好友数组relation
+            relation = (NSMutableArray *)obj[@"relation"];
+            for (int i = 0; i < relation.count; i++) {
+                NSDictionary *dict = relation[i];
+                NSString *actID = [dict.allKeys lastObject];
+                if ([friendAccount isEqualToString:actID]) {
+                    [relation removeObjectAtIndex:i];
+                    
+                    [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        // 注册删除好友成功的通知
+                        [[NSNotificationCenter defaultCenter] postNotificationName:DeleteFriend object:@(succeeded)];
+                    }];
+                }
+            }
+        }
+    }];
+    
+    [self fetchObjectWithObjectID:UserInfoClassName className:userAccount getObject:^(id object) {
+        
+        AVObject *obj = (AVObject *)object;
+        NSMutableArray *relation = [NSMutableArray array];
+        
+        if (obj[@"relation"]) {
+            // 取出好友数组relation
+            relation = (NSMutableArray *)obj[@"relation"];
+            for (int i = 0; i < relation.count; i++) {
+                NSDictionary *dict = relation[i];
+                NSString *actID = [dict.allKeys lastObject];
+                if ([friendAccount isEqualToString:actID]) {
+                    [relation removeObjectAtIndex:i];
+                    
+                    [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        // 注册删除好友成功的通知
+//                        [[NSNotificationCenter defaultCenter] postNotificationName:DeleteFriend object:@(succeeded)];
+                    }];
+                }
+            }
+        }
+    }];
+}
 
 @end

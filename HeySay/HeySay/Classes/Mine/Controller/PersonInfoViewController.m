@@ -1,37 +1,23 @@
 //
-//  SessionViewController.m
+//  PersonInfoViewController.m
 //  HeySay
 //
-//  Created by ChinaChong on 16/4/18.
+//  Created by ChinaChong on 16/4/27.
 //  Copyright © 2016年 ChinaChong. All rights reserved.
 //
 
-#import "SessionViewController.h"
-#import "ChatViewController.h"
-#import "MainTabBarController.h"
+#import "PersonInfoViewController.h"
 
-@interface SessionViewController ()
+@interface PersonInfoViewController ()
 
 @end
 
-@implementation SessionViewController
+@implementation PersonInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
-
-- (IBAction)jumpToChat:(id)sender {
-    
-    ChatViewController *chatVC = [[ChatViewController alloc] init];
-    
-    MainTabBarController *mainTVC = (MainTabBarController *)self.tabBarController;
-    
-//    chatVC.userAccount = mainTVC.userAccount;
-    
-    [self.navigationController pushViewController:chatVC animated:YES];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

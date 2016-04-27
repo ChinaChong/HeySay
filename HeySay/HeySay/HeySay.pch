@@ -32,6 +32,13 @@
 // MARK:聊天界面->点击发送按钮
 #define ChatViewSendMessageButtonClick @"ChatViewSendMessageButtonClick"
 
+// MARK:好友相关
+#define AddFriends    @"AddFriends"
+#define AccpetRequest @"AccpetRequest"
+#define RejectRequest @"RejectRequest"
+#define DeleteFriend  @"DeleteFriend"
+#define NewFriend     @"NewFriend"
+
 // MARK: leancloud 相关
 #define AllIDClassName    @"AllID"
 #define AllIDObjectID     @"571841c01ea493006cd5fb76"
@@ -39,13 +46,13 @@
 #define UserInfoClassName @"UserInfo"
 
 //MARKL TimeLine相关
-#define apadding 10
-#define screenWidth [UIScreen mainScreen].bounds.size.width
-#define screenHeight [UIScreen mainScreen].bounds.size.height
+#define apadding       10
+#define screenWidth    [UIScreen mainScreen].bounds.size.width
+#define screenHeight   [UIScreen mainScreen].bounds.size.height
 #define headViewHeight 200
-#define headIconWidth 50
+#define headIconWidth  50
 #define headIconHeight 50
-#define ImageTag 2000
+#define ImageTag       2000
 
 
 #endif

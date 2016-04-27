@@ -369,9 +369,34 @@
                     <view key="view" contentMode="scaleToFill" id="nex-Ih-9lh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PAh-ss-uy4">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="puT-H5-xVD" id="iHc-Dg-rLe"/>
+                                    <outlet property="delegate" destination="puT-H5-xVD" id="3kC-hL-29R"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4hL-3F-QQH" firstAttribute="top" secondItem="PAh-ss-uy4" secondAttribute="bottom" constant="-49" id="FpC-Ce-tzh"/>
+                            <constraint firstAttribute="trailing" secondItem="PAh-ss-uy4" secondAttribute="trailing" id="cLG-Jm-2NS"/>
+                            <constraint firstItem="PAh-ss-uy4" firstAttribute="leading" secondItem="nex-Ih-9lh" secondAttribute="leading" id="vzg-Al-n4O"/>
+                            <constraint firstItem="PAh-ss-uy4" firstAttribute="top" secondItem="X24-DS-aUM" secondAttribute="bottom" constant="-64" id="yH9-Ot-hgf"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="通讯录" id="4iA-h7-5OT"/>
+                    <navigationItem key="navigationItem" title="通讯录" id="4iA-h7-5OT">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="di0-jr-OYC">
+                            <connections>
+                                <action selector="addFriend:" destination="puT-H5-xVD" id="m4c-Ge-Svx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="PAh-ss-uy4" id="Gj8-8G-yQX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egy-8P-pwx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -526,14 +551,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FriendHighLight" width="27" height="27"/>
-        <image name="FriendNormal" width="27" height="27"/>
+        <image name="FriendHighLight" width="28" height="28"/>
+        <image name="FriendNormal" width="28" height="28"/>
         <image name="MessageHighLight" width="27" height="27"/>
         <image name="MessageNormal" width="27" height="27"/>
         <image name="Mine" width="27" height="27"/>
         <image name="MineHighLight" width="27" height="27"/>
-        <image name="TimeLineHighLight" width="37" height="27"/>
-        <image name="TimeLineNormal" width="37" height="27"/>
+        <image name="TimeLineHighLight" width="28" height="28"/>
+        <image name="TimeLineNormal" width="28" height="28"/>
         <image name="backgroundImg01.jpg" width="800" height="1280"/>
         <image name="占位头像.png" width="200" height="200"/>
     </resources>

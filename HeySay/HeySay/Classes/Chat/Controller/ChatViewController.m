@@ -10,6 +10,8 @@
 #import "ChatKeyBoardInputView.h"
 #import "MessageTableViewCell.h"
 #import "UserModel.h"
+#import "ChatLogModel.h"
+#import "ChatLogManager.h"
 
 @interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
@@ -30,14 +32,23 @@
     
     if (_dataArray == nil) {
         
-        _dataArray = [NSMutableArray array];
+        NSMutableArray *arr = [[ChatLogManager defaultManeger] selectChatLogWithTableName:self.friendModel.accountID];
+        
+        if (arr) {
+            _dataArray = [NSMutableArray arrayWithArray:arr];
+        }else {
+            _dataArray = [NSMutableArray array];
+        }
     }
-    
     return _dataArray;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    
+    NSLog(@"路径::%@",path);
     
     isSend = YES;
     
@@ -80,16 +91,11 @@
     
     ECTextMessageBody *messageBody = [[ECTextMessageBody alloc] initWithText:text];
     
-    NSString *receiver;
-#warning 缺少好友关系
-    if ([self.userAccount isEqualToString:@"123"]) {
-        
-        receiver = @"xxh";
-    }else{
-        receiver = @"123";
-    }
+    ECMessage *message = [[ECMessage alloc] initWithReceiver:self.friendModel.accountID body:messageBody];
     
-    ECMessage *message = [[ECMessage alloc] initWithReceiver:receiver body:messageBody];
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval tmp =[date timeIntervalSince1970]*1000;
+    message.timestamp = [NSString stringWithFormat:@"%lld", (long long)tmp];
     
     [self.dataArray addObject:message];// 添加数据源
     
@@ -97,6 +103,15 @@
                                                                                             ECMessage *amessage) {
         
         if (error.errorCode == ECErrorType_NoError) {
+            
+            // 发送成功,存到本地数据库
+            ECTextMessageBody *msgBody = (ECTextMessageBody *)amessage.messageBody;
+            ChatLogModel *model = [[ChatLogModel alloc] init];
+            model.isSend = YES;
+            model.message = msgBody.text;
+            [[ChatLogManager defaultManeger] createTableWithTableName:self.friendModel.accountID];
+            [[ChatLogManager defaultManeger] insertChatLogWithChatLogModel:model withTableName:self.friendModel.accountID];
+            
             // 发送成功
             // 滚动到最后一行
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0];
@@ -124,7 +139,22 @@
     
     ECMessage *message = (ECMessage *)[sender object];
     
+    if (message.userData) {
+        return;
+    }
+    
+    NSString *dateString  = [self getDateDisplayString:message.timestamp.longLongValue];
+    
+    NSLog(@"%@",dateString);
+    
     [self.dataArray addObject:message];// 添加数据源
+    
+    ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
+    ChatLogModel *model = [[ChatLogModel alloc] init];
+    model.isSend = NO;
+    model.message = msgBody.text;
+    [[ChatLogManager defaultManeger] createTableWithTableName:self.friendModel.accountID];
+    [[ChatLogManager defaultManeger] insertChatLogWithChatLogModel:model withTableName:self.friendModel.accountID];
     
     // 滚动到最后一行
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0];
@@ -135,6 +165,33 @@
         
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionMiddle) animated:YES];
     }
+}
+
+//时间显示内容
+-(NSString *)getDateDisplayString:(long long) miliSeconds{
+    
+    NSTimeInterval tempMilli = miliSeconds;
+    NSTimeInterval seconds = tempMilli/1000.0;
+    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:seconds];
+    
+    NSCalendar *calendar = [ NSCalendar currentCalendar ];
+    int unit = NSCalendarUnitDay | NSCalendarUnitMonth |  NSCalendarUnitYear ;
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:[ NSDate date ]];
+    NSDateComponents *myCmps = [calendar components:unit fromDate:myDate];
+    
+    NSDateFormatter *dateFmt = [[ NSDateFormatter alloc ] init ];
+    if (nowCmps.year != myCmps.year) {
+        dateFmt.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    } else {
+        if (nowCmps.day==myCmps.day) {
+            dateFmt.dateFormat = @"今天 HH:mm:ss";
+        } else if((nowCmps.day-myCmps.day)==1) {
+            dateFmt.dateFormat = @"昨天 HH:mm:ss";
+        } else {
+            dateFmt.dateFormat = @"MM-dd HH:mm:ss";
+        }
+    }
+    return [dateFmt stringFromDate:myDate];
 }
 
 // MARK:键盘将要弹出
@@ -211,9 +268,11 @@
     
     ECTextMessageBody *msgBody = (ECTextMessageBody *)message.messageBody;
     
-    if ([message.from isEqualToString:self.userAccount]) {
+    if ([message.from isEqualToString:self.userModel.accountID]) {
+        cell.iconURL = self.userModel.iconUrl;
         cell.isSend = YES;
     }else{
+        cell.iconURL = self.friendModel.iconURL;
         cell.isSend = NO;
     }
     cell.msgContent = msgBody.text;

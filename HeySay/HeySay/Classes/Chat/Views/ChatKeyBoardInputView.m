@@ -28,7 +28,7 @@
         self.textField.backgroundColor = [UIColor lightGrayColor];
         self.textField.layer.cornerRadius = 4;
         self.textField.layer.masksToBounds = YES;
-        self.textField.font = [UIFont systemFontOfSize:14];
+        self.textField.font = [UIFont systemFontOfSize:17];
         self.textField.delegate = self;
         [self addSubview:self.textField];
         
