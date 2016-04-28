@@ -1,25 +1,23 @@
 //
-//  PersonInfoViewController.m
+//  LaunchScreenViewController.m
 //  HeySay
 //
-//  Created by ChinaChong on 16/4/27.
+//  Created by ChinaChong on 16/4/28.
 //  Copyright © 2016年 ChinaChong. All rights reserved.
 //
 
-#import "PersonInfoViewController.h"
+#import "LaunchScreenViewController.h"
 
-@interface PersonInfoViewController ()
+@interface LaunchScreenViewController ()
 
 @end
 
-@implementation PersonInfoViewController
+@implementation LaunchScreenViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    // Do any additional setup after loading the view.
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

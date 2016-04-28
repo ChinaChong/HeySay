@@ -38,7 +38,10 @@
     [super viewDidLoad];
     
     self.title = @"朋友圈";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddAbout:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddAbout:)];
+//    
+//    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:(UIControlStateNormal)];
+    
     [self.tableView registerClass:[TimeLineCell class] forCellReuseIdentifier:TIFIER];
     [self requestData];
     

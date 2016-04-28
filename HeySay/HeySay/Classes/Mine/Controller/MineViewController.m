@@ -13,6 +13,8 @@
 #import "ViewController.h"
 #import "UserModel.h"
 #import "UIImageView+WebCache.h"
+#import "AboutUsViewController.h"
+#import "PersonInfoViewController.h"
 
 @interface MineViewController ()
 
@@ -44,9 +46,6 @@
     self.exitBtn.layer.masksToBounds = YES;
     self.mineImgV.layer.cornerRadius = self.mineImgV.bounds.size.width * 0.5;
     self.mineImgV.layer.masksToBounds = YES;
-    self.mineImgV.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(personInfo)];
-    [self.mineImgV addGestureRecognizer:tap];
 }
 
 - (void)configInfo {
@@ -82,12 +81,11 @@
     }];
     
 }
-
-- (void)personInfo {
-    
-}
 - (IBAction)aboutUs:(id)sender {
+    AboutUsViewController *aboutUs = [[AboutUsViewController alloc] initWithNibName:@"AboutUsViewController" bundle:nil];
     
+    aboutUs.textView.userInteractionEnabled = NO;
+    [self.navigationController pushViewController:aboutUs animated:YES];
 }
 
 - (IBAction)signOutAction:(id)sender {

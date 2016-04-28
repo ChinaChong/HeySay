@@ -288,7 +288,7 @@
 - (void)configLeftBarBtn {
     
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:(UIBarButtonItemStyleDone) target:self action:@selector(popToLastVC)];
-    
+    [backBtn setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:(UIControlStateNormal)];
     self.navigationItem.leftBarButtonItem = backBtn;
 }
 

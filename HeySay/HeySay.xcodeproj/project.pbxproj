@@ -61,6 +61,10 @@
 		3CC084BF1CCDBCDC0006D71C /* AddFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC084BE1CCDBCDC0006D71C /* AddFriendsViewController.xib */; };
 		3CC084C31CCE17790006D71C /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC084C11CCE17790006D71C /* FriendTableViewCell.m */; };
 		3CC084C41CCE17790006D71C /* FriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC084C21CCE17790006D71C /* FriendTableViewCell.xib */; };
+		3CCCDBA11CD1A2FC005C5465 /* LaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CCCDBA01CD1A2FC005C5465 /* LaunchScreenViewController.m */; };
+		3CCCDBAB1CD1AEC0005C5465 /* 10279353.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CCCDBAA1CD1AEC0005C5465 /* 10279353.jpg */; };
+		3CCCDBAD1CD1B046005C5465 /* pic-5285-9-1080x1920.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CCCDBAC1CD1B046005C5465 /* pic-5285-9-1080x1920.jpg */; };
+		3CCCDBAF1CD1BA35005C5465 /* 5174f7aa15e99af391d797a7f2b6cb58.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3CCCDBAE1CD1BA35005C5465 /* 5174f7aa15e99af391d797a7f2b6cb58.jpeg */; };
 		3CCD01761CC5DF4D004C5703 /* chat_receiver_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCD01741CC5DF4D004C5703 /* chat_receiver_bg@2x.png */; };
 		3CCD01771CC5DF4D004C5703 /* chat_sender_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCD01751CC5DF4D004C5703 /* chat_sender_bg@2x.png */; };
 		3CCD017A1CC6058E004C5703 /* DeviceDelegateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CCD01781CC6058E004C5703 /* DeviceDelegateHelper.m */; };
@@ -190,6 +194,11 @@
 		3CC084C01CCE17790006D71C /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		3CC084C11CCE17790006D71C /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		3CC084C21CCE17790006D71C /* FriendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendTableViewCell.xib; sourceTree = "<group>"; };
+		3CCCDB9F1CD1A2FC005C5465 /* LaunchScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchScreenViewController.h; sourceTree = "<group>"; };
+		3CCCDBA01CD1A2FC005C5465 /* LaunchScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchScreenViewController.m; sourceTree = "<group>"; };
+		3CCCDBAA1CD1AEC0005C5465 /* 10279353.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10279353.jpg; sourceTree = "<group>"; };
+		3CCCDBAC1CD1B046005C5465 /* pic-5285-9-1080x1920.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pic-5285-9-1080x1920.jpg"; sourceTree = "<group>"; };
+		3CCCDBAE1CD1BA35005C5465 /* 5174f7aa15e99af391d797a7f2b6cb58.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5174f7aa15e99af391d797a7f2b6cb58.jpeg; sourceTree = "<group>"; };
 		3CCD01741CC5DF4D004C5703 /* chat_receiver_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_receiver_bg@2x.png"; sourceTree = "<group>"; };
 		3CCD01751CC5DF4D004C5703 /* chat_sender_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_sender_bg@2x.png"; sourceTree = "<group>"; };
 		3CCD01781CC6058E004C5703 /* DeviceDelegateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDelegateHelper.m; sourceTree = "<group>"; };
@@ -358,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				3CA387521CC47490008B6CFC /* Classes */,
+				3CCCDB981CD1A26A005C5465 /* Wellcom */,
 				3CA385E51CC467AC008B6CFC /* AppDelegate.h */,
 				3CA385E61CC467AC008B6CFC /* AppDelegate.mm */,
 				3CA387621CC47490008B6CFC /* ViewController.h */,
@@ -433,6 +443,9 @@
 		3CA387381CC473F5008B6CFC /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3CCCDBAE1CD1BA35005C5465 /* 5174f7aa15e99af391d797a7f2b6cb58.jpeg */,
+				3CCCDBAC1CD1B046005C5465 /* pic-5285-9-1080x1920.jpg */,
+				3CCCDBAA1CD1AEC0005C5465 /* 10279353.jpg */,
 				3C80135C1CC7BEEA005F3027 /* 占位头像.png */,
 				3CCD01821CC60E87004C5703 /* 用户2.png */,
 				3CCD01741CC5DF4D004C5703 /* chat_receiver_bg@2x.png */,
@@ -719,6 +732,16 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		3CCCDB981CD1A26A005C5465 /* Wellcom */ = {
+			isa = PBXGroup;
+			children = (
+				3CCCDB9F1CD1A2FC005C5465 /* LaunchScreenViewController.h */,
+				3CCCDBA01CD1A2FC005C5465 /* LaunchScreenViewController.m */,
+			);
+			name = Wellcom;
+			path = Classes/TimeLine/Wellcom;
+			sourceTree = "<group>";
+		};
 		3CCD01901CC658DA004C5703 /* MainTabBarController */ = {
 			isa = PBXGroup;
 			children = (
@@ -973,11 +996,13 @@
 				C23166CE1CCB24AF00E39DE9 /* headicon.png in Resources */,
 				3CA387821CC47490008B6CFC /* .gitignore in Resources */,
 				C23166AC1CCB219A00E39DE9 /* CCPSDKBundle.bundle in Resources */,
+				3CCCDBAD1CD1B046005C5465 /* pic-5285-9-1080x1920.jpg in Resources */,
 				3C80135D1CC7BEEA005F3027 /* 占位头像.png in Resources */,
 				C23166C71CCB24AF00E39DE9 /* 范冰冰.png in Resources */,
 				C23166C81CCB24AF00E39DE9 /* 高圆圆.png in Resources */,
 				3CA387A61CC4E1B1008B6CFC /* ChatViewController.xib in Resources */,
 				3CCD01771CC5DF4D004C5703 /* chat_sender_bg@2x.png in Resources */,
+				3CCCDBAB1CD1AEC0005C5465 /* 10279353.jpg in Resources */,
 				C23166CA1CCB24AF00E39DE9 /* addPictures.png in Resources */,
 				3CA3877C1CC47490008B6CFC /* .gitignore in Resources */,
 				3CCD01E11CC678FC004C5703 /* Main.storyboard in Resources */,
@@ -986,6 +1011,7 @@
 				3CA387841CC47490008B6CFC /* .gitignore in Resources */,
 				3CA387881CC47490008B6CFC /* .gitignore in Resources */,
 				3CA385F21CC467AC008B6CFC /* LaunchScreen.storyboard in Resources */,
+				3CCCDBAF1CD1BA35005C5465 /* 5174f7aa15e99af391d797a7f2b6cb58.jpeg in Resources */,
 				3CA3877D1CC47490008B6CFC /* .gitignore in Resources */,
 				C23166D11CCB24AF00E39DE9 /* picture2.png in Resources */,
 				C23166D21CCB24AF00E39DE9 /* picture3.png in Resources */,
@@ -1092,6 +1118,7 @@
 				3CCD017A1CC6058E004C5703 /* DeviceDelegateHelper.m in Sources */,
 				C23166B61CCB229600E39DE9 /* TimeLineCell.m in Sources */,
 				3CA387081CC473B3008B6CFC /* KCPinyinHelper.m in Sources */,
+				3CCCDBA11CD1A2FC005C5465 /* LaunchScreenViewController.m in Sources */,
 				3CCD01931CC65902004C5703 /* MainTabBarController.m in Sources */,
 				3CA385E41CC467AC008B6CFC /* main.m in Sources */,
 				3CC084BB1CCDBC640006D71C /* FriendModel.m in Sources */,

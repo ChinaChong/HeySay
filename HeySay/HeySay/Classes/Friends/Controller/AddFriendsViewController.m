@@ -23,6 +23,14 @@
     [super viewDidLoad];
     
     [self configInterface];
+    
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:(UIBarButtonItemStyleDone) target:self action:@selector(backAct:)];
+    [backBtn setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:(UIControlStateNormal)];
+    self.navigationItem.leftBarButtonItem = backBtn;
+}
+
+- (void)backAct:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)configInterface {

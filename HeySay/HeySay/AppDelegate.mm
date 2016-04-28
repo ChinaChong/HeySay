@@ -18,6 +18,35 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [self.window makeKeyAndVisible];
+    
+    //设置一个图片;
+    UIImageView *niceView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, ScreenWidth, ScreenHeight)];
+
+    niceView.image = [UIImage imageNamed:@"pic-5285-9-1080x1920.jpg"];
+    
+    //添加到场景
+    [self.window addSubview:niceView];
+    
+    UIImageView *niceView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, ScreenWidth, ScreenHeight)];
+    
+    niceView2.image = [UIImage imageNamed:@"10279353.jpg"];
+    
+    //添加到场景
+    [self.window addSubview:niceView2];
+    [self.window bringSubviewToFront:niceView2];
+    
+    //放到最顶层;
+    [self.window bringSubviewToFront:niceView];
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        niceView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:2.0 animations:^{
+            niceView2.alpha = 0.0;
+        }];
+    }];
+    
     [ECDevice sharedInstance].delegate = [DeviceDelegateHelper sharedInstance];
     
     NSString *APPID = @"9sO2iepe985cP4taIcK2vOcV-gzGzoHsz";
@@ -30,6 +59,24 @@
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     return YES;
+}
+
+- (void)animationStart:(UIImageView *)imageView {
+    
+    
+    //开始设置动画;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:3.0];
+    [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.window cache:YES];
+    [UIView setAnimationDelegate:self];
+    //    這裡還可以設置回調函數;
+    
+    //    [UIView setAnimationDidStopSelector:@selector(startupAnimationDone:finished:context:)];
+    
+    imageView.alpha = 0.0;
+    imageView.frame = CGRectMake(0, 0, ScreenWidth * 1.1, ScreenHeight * 1.1);
+    imageView.center = self.window.center;
+    [UIView commitAnimations];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -389,6 +389,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="通讯录" id="4iA-h7-5OT">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="di0-jr-OYC">
+                            <color key="tintColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="addFriend:" destination="puT-H5-xVD" id="m4c-Ge-Svx"/>
                             </connections>
@@ -425,7 +426,11 @@
                             <outlet property="delegate" destination="u3K-tT-cQC" id="pYz-rV-cA1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Fwm-Ts-AEn"/>
+                    <navigationItem key="navigationItem" id="Fwm-Ts-AEn">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="PLD-HQ-Ugc">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcg-rc-2Ti" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -552,7 +557,7 @@
                                     <constraint firstAttribute="height" constant="33" id="A9C-Gk-9hs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="关于我们">
+                                <state key="normal" title="免责声明">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
